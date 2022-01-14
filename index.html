@@ -1,0 +1,86 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Home</title>
+    <link rel="stylesheet" href="assets/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css">
+    <link rel="shortcut icon" href="assets/images/favicon.ico">
+
+</head>
+
+<body>
+    <!-- HEADER -->
+    <header>
+        <a href="index.html" class="logo">
+            <img class="hlogo" src="assets/images/favicon.ico" alt="pokemon">TradeBay
+        </a>
+        <input type="checkbox" id="menu-bar">
+        <label for="menu-bar"><i class="fas fa-bars fa-lg"></i></label>
+        <nav class="navbar">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="trades.html">Trades</a></li>
+                <li><a href="new_trade.html">Start Trading</a></li>
+                <li><a href="#">Account</a>
+                    <ul>
+                        <li><a href="#">Login</a></li>
+                        <li><a href="#">Signup</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- MAIN -->
+    <div class="main">
+        <div class="content">
+            <h1 class="home-header">Welcome to Collector's Home</h1>
+            <h3 class="home-subheader">Trade, Collect, and Enjoy!</h3>
+            <!-- SLIDER -->
+            <div class="slideshow-container">
+                <div class="slide fade">
+                    <img class="slide-image" src="assets/images/StarWars.jpg" alt="slide">
+                </div>
+                <div class="slide fade">
+                    <img class="slide-image" src="assets/images/pokemon.jpg" alt="slide">
+                </div>
+                <div class="slide fade">
+                    <img class="slide-image" src="assets/images/Dragon-Ball-Z.jpg" alt="slide">
+                </div>
+            </div>
+            <br>
+            <div class="pointers">
+                <span class="slide-pointer"></span>
+                <span class="slide-pointer"></span>
+                <span class="slide-pointer"></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <ul class="footer-ul">
+            <li class="footer-li"><a href="#">&copy; TradeBay</a></li>
+            <li class="footer-li"><a href="#">About</a></li>
+            <li class="footer-li"><a href="#">Contact</a></li>
+            <li class="footer-icons" id="icon-shift">
+                <a class="instagram" href="https://www.facebook.com/" target="_blank">
+                    <i class="fab fa-instagram"></i>
+                </a>
+            </li>
+            <li class="footer-icons">
+                <a class="twitter" href="https://twitter.com/" target="_blank">
+                    <i class="fab fa-twitter"></i>
+                </a>
+            </li>
+        </ul>
+    </footer>
+    <script src="assets/slider.js"></script>
+</body>
+
+</html>
