@@ -302,15 +302,15 @@ header label {
     border-radius: 15px;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
     transition: box-shadow 0.3s ease-in-out;
-    -webkit-transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
-    transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+    -webkit-transition: all 0.6s cubic-bezier(0.160, 0.85, 0.45, 1);
+    transition: all 0.6s cubic-bezier(0.160, 0.85, 0.45, 1);
 }
 
 .cat-img::after {
     opacity: 0;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-    -webkit-transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
-    transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+    -webkit-transition: all 0.6s cubic-bezier(0.160, 0.85, 0.45, 1);
+    transition: all 0.6s cubic-bezier(0.160, 0.85, 0.45, 1);
 }
 
 .cat-header {
@@ -435,16 +435,16 @@ input[type="file"] {
 /* ====================================== FOOTER ====================================== */
 
 footer {
-    flex-shrink: 0;
     background: #172121;
-    color: whitesmoke;
+    color: white;
     border-top: 1px solid rgb(97, 95, 92);
     padding: 15px 5%;
+    flex-shrink: 0;
 }
 
 .footer-ul {
-    list-style-type: none;
     overflow: hidden;
+    list-style-type: none;
 }
 
 .footer-ul {
@@ -453,17 +453,17 @@ footer {
 }
 
 .footer-li {
-    float: left;
     margin-bottom: 0px;
     margin-top: 8px;
+    float: left;
 }
 
 .footer-li a {
+    color: white;
     display: block;
     text-align: center;
-    padding: 5px 16px;
+    padding: 5px 15px;
     text-decoration: none;
-    color: white;
     justify-content: space-around;
     font-size: 16px;
     margin-top: 2px;
@@ -505,7 +505,7 @@ footer {
 }
 
 .footer-icons a i {
-    transition: 0.2s all;
+    transition: 0.3s all;
 }
 
 .footer-icons a:hover>i {
