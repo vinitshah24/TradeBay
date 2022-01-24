@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Home</title>
+    <title>Login</title>
     <link rel="stylesheet" href="assets/style.css">
     <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css">
@@ -38,26 +38,20 @@
     <!-- MAIN -->
     <div class="main">
         <div class="content">
-            <h1 class="home-header">Welcome to Collector's Home</h1>
-            <h3 class="home-subheader">Trade, Collect, and Enjoy!</h3>
-            <!-- SLIDER -->
-            <div class="slideshow-container">
-                <div class="slide fade">
-                    <img class="slide-image" src="assets/images/starwars.jpg" alt="slide">
+            <form method="post">
+                <h1 class="home-header">Login</h1>
+                <div class="login-main">
+                    <div>
+                        <img id="login-img" src="assets/images/login.png" alt="Login image">
+                    </div>
+                    <div class="login-div">
+                        <input class="login-input" type="email" name="email" placeholder="Email">
+                        <input class="login-input" type="password" name="password" placeholder="Password">
+                        <button class="btn green-btn" type="submit">Sign In</button>
+                        <p><b>Don't have an account? <a href="#">Signup</a></b></p>
+                    </div>
                 </div>
-                <div class="slide fade">
-                    <img class="slide-image" src="assets/images/pokemon.jpg" alt="slide">
-                </div>
-                <div class="slide fade">
-                    <img class="slide-image" src="assets/images/dbz.jpg" alt="slide">
-                </div>
-            </div>
-            <br>
-            <div class="pointers">
-                <span class="slide-pointer"></span>
-                <span class="slide-pointer"></span>
-                <span class="slide-pointer"></span>
-            </div>
+            </form>
         </div>
     </div>
 

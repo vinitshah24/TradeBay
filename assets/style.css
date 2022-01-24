@@ -1,513 +1,538 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Arial;
-    text-decoration: none;
-}
-
-html,
-body {
-    height: 100%;
-}
-
-body {
-    background-color: #FBFFF1;
-    display: flex;
-    flex-direction: column;
-}
-
-
-/* ====================================== HEADER ====================================== */
-
-.hlogo {
-    float: left;
-    width: 30px;
-    height: 30px;
-}
-
-header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    background: #172121;
-    box-shadow: 0 5px 10px rgba(0, 0, 0, .1);
-    padding: 15px 5%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    z-index: 1000;
-    border-bottom: 1px solid rgb(97, 95, 92);
-}
-
-header .logo {
-    font-weight: bolder;
-    font-size: 25px;
-    color: #E5D0CC;
-}
-
-header .navbar ul {
-    list-style: none;
-}
-
-header .navbar ul li {
-    position: relative;
-    float: left;
-}
-
-header .navbar ul li a {
-    font-size: 16px;
-    padding: 20px;
-    color: #e2b6cb;
-    display: block;
-}
-
-header .navbar ul li a:hover {
-    color: #c27b9c;
-}
-
-header .navbar ul li ul {
-    position: absolute;
-    left: 0;
-    width: 200px;
-    background: #172121;
-    display: none;
-}
-
-header .navbar ul li ul li {
-    width: 100%;
-    border-top: 1px solid rgb(97, 95, 92);
-}
-
-header .navbar ul li ul li ul {
-    left: 200px;
-    top: 0;
-}
-
-header .navbar ul li:focus-within>ul,
-header .navbar ul li:hover>ul {
-    display: initial;
-}
-
-#menu-bar {
-    display: none;
-}
-
-header label {
-    font-size: 20px;
-    color: wheat;
-    cursor: pointer;
-    display: none;
-}
-
-@media(max-width:991px) {
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial;
+        text-decoration: none;
+    }
+    
+    html,
+    body {
+        height: 100%;
+    }
+    
+    body {
+        background-color: #FBFFF1;
+        display: flex;
+        flex-direction: column;
+    }
+    /* ====================================== HEADER ====================================== */
+    
+    .hlogo {
+        float: left;
+        width: 30px;
+        height: 30px;
+    }
+    
     header {
-        padding: 20px;
-    }
-    header label {
-        display: initial;
-    }
-    header .navbar {
-        position: absolute;
-        top: 100%;
+        position: fixed;
+        top: 0;
         left: 0;
         right: 0;
         background: #172121;
-        border-top: 1px solid rgb(97, 95, 92);
+        box-shadow: 0 5px 10px rgba(0, 0, 0, .1);
+        padding: 15px 5%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        z-index: 1000;
+        border-bottom: 1px solid rgb(97, 95, 92);
+    }
+    
+    header .logo {
+        font-weight: bolder;
+        font-size: 25px;
+        color: #E5D0CC;
+    }
+    
+    header .navbar ul {
+        list-style: none;
+    }
+    
+    header .navbar ul li {
+        position: relative;
+        float: left;
+    }
+    
+    header .navbar ul li a {
+        font-size: 16px;
+        padding: 20px;
+        color: #e2b6cb;
+        display: block;
+    }
+    
+    header .navbar ul li a:hover {
+        color: #c27b9c;
+    }
+    
+    header .navbar ul li ul {
+        position: absolute;
+        left: 0;
+        width: 200px;
+        background: #172121;
         display: none;
     }
-    header .navbar ul li {
+    
+    header .navbar ul li ul li {
         width: 100%;
         border-top: 1px solid rgb(97, 95, 92);
     }
-    header .navbar ul li ul {
-        position: relative;
-        width: 100%;
-    }
-    header .navbar ul li ul li {
-        background: #172121;
-    }
+    
     header .navbar ul li ul li ul {
-        width: 100%;
-        left: 0;
+        left: 200px;
+        top: 0;
     }
-    #menu-bar:checked~.navbar {
+    
+    header .navbar ul li:focus-within>ul,
+    header .navbar ul li:hover>ul {
         display: initial;
     }
-}
-
-
-/* ====================================== BUTTON ====================================== */
-
-.btn {
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    text-align: center;
-    display: inline-block;
-    font-size: 15px;
-    margin: 2vh 0vh 2vh;
-    transition-duration: 0.4s;
-    cursor: pointer;
-    border-radius: 4px;
-}
-
-.red-btn {
-    color: black;
-    background: white;
-    border: #e03065 solid 1px;
-}
-
-.red-btn:hover {
-    color: white;
-    background-color: #e03065;
-}
-
-.blue-btn {
-    color: black;
-    background: white;
-    border: #187ef3 solid 1px;
-}
-
-.blue-btn:hover {
-    color: white;
-    background-color: #187ef3;
-}
-
-.green-btn {
-    color: black;
-    background: white;
-    border: #25aa51 solid 1px;
-}
-
-.green-btn:hover {
-    color: white;
-    background-color: #25aa51;
-}
-
-
-/* ====================================== MAIN ====================================== */
-
-.main {
-    margin-top: 100px;
-    flex: 1 0 auto;
-}
-
-.content {
-    margin: 5vh 5vh 5vh 5vh;
-    border: #343A40 solid;
-    border-radius: 5px;
-}
-
-.content.h2 {
-    align-items: center;
-}
-
-
-/* ====================================== HOME PAGE ====================================== */
-
-.home-header {
-    text-align: center;
-    margin-bottom: 5vh;
-    padding-top: 25px;
-}
-
-.home-subheader {
-    text-align: center;
-    margin-bottom: 2vh;
-    padding-top: 10px;
-}
-
-.slide {
-    display: none;
-}
-
-.slideshow-container {
-    max-width: 1000px;
-    position: relative;
-    margin: auto;
-}
-
-.pointers {
-    text-align: center;
-    margin-bottom: 5vh;
-}
-
-.slide-pointer {
-    height: 15px;
-    width: 15px;
-    margin: 0 2px;
-    background-color: #bbb;
-    border-radius: 50%;
-    display: inline-block;
-    transition: background-color 0.6s ease;
-}
-
-.slide-image {
-    width: 100%;
-    vertical-align: middle;
-    border-radius: 18px;
-}
-
-.active {
-    background-color: #717171;
-}
-
-.fade {
-    -webkit-animation-name: fade;
-    -webkit-animation-duration: 1.5s;
-    animation-name: fade;
-    animation-duration: 1.5s;
-}
-
-@-webkit-keyframes fade {
-    from {
-        opacity: .4
+    
+    #menu-bar {
+        display: none;
     }
-    to {
-        opacity: 1
+    
+    header label {
+        font-size: 20px;
+        color: wheat;
+        cursor: pointer;
+        display: none;
     }
-}
-
-@keyframes fade {
-    from {
-        opacity: .4
+    
+    @media(max-width:991px) {
+        header {
+            padding: 20px;
+        }
+        header label {
+            display: initial;
+        }
+        header .navbar {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: #172121;
+            border-top: 1px solid rgb(97, 95, 92);
+            display: none;
+        }
+        header .navbar ul li {
+            width: 100%;
+            border-top: 1px solid rgb(97, 95, 92);
+        }
+        header .navbar ul li ul {
+            position: relative;
+            width: 100%;
+        }
+        header .navbar ul li ul li {
+            background: #172121;
+        }
+        header .navbar ul li ul li ul {
+            width: 100%;
+            left: 0;
+        }
+        #menu-bar:checked~.navbar {
+            display: initial;
+        }
     }
-    to {
-        opacity: 1
+    /* ====================================== BUTTON ====================================== */
+    
+    .btn {
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        text-align: center;
+        display: inline-block;
+        font-size: 15px;
+        margin: 2vh 0vh 2vh;
+        transition-duration: 0.4s;
+        cursor: pointer;
+        border-radius: 4px;
     }
-}
-
-
-/* ====================================== TRADES PAGE ====================================== */
-
-.img-box {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    /* border: green solid 2px; */
-}
-
-.cat-img:hover {
-    /* box-shadow: 0 0 10px rgba(12, 9, 9, 0.2); */
-    -webkit-transform: scale(1.06, 1.06);
-    transform: scale(1.05, 1.05);
-}
-
-.cat-img {
-    width: 300px;
-    border-radius: 15px;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
-    transition: box-shadow 0.3s ease-in-out;
-    -webkit-transition: all 0.6s cubic-bezier(0.160, 0.85, 0.45, 1);
-    transition: all 0.6s cubic-bezier(0.160, 0.85, 0.45, 1);
-}
-
-.cat-img::after {
-    opacity: 0;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-    -webkit-transition: all 0.6s cubic-bezier(0.160, 0.85, 0.45, 1);
-    transition: all 0.6s cubic-bezier(0.160, 0.85, 0.45, 1);
-}
-
-.cat-header {
-    text-align: center;
-    margin-bottom: 2vh;
-    margin-top: 2vh;
-}
-
-.cat-img-box {
-    padding: 0 20px 20px 20px;
-    transition: 0.9s;
-    /* border: #343A40 solid 2px; */
-    padding-top: 20px;
-}
-
-
-/* ====================================== TRADES PAGE ====================================== */
-
-.container {
-    position: relative;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    align-content: center;
-}
-
-.container .card {
-    position: relative;
-    /* background: chartreuse; */
-    margin: 10px;
-    padding: 15px;
-    display: flex;
-}
-
-.container .card .trade-img-box {
-    flex: 0 0 150px;
-}
-
-.container .card .trade-content {
-    margin-left: 20px;
-}
-
-.trade-content h2 {
-    margin: 2vh 0vh 2vh 0vh;
-}
-
-@media (max-width: 991px) {
-    .container {
-        flex-direction: column;
+    
+    .red-btn {
+        color: black;
+        background: white;
+        border: #e03065 solid 1px;
     }
-}
-
-@media (max-width: 768px) {
-    .container {
-        flex-direction: column;
+    
+    .red-btn:hover {
+        color: white;
+        background-color: #e03065;
     }
-    .container .card {
-        flex-direction: column;
+    
+    .blue-btn {
+        color: black;
+        background: white;
+        border: #187ef3 solid 1px;
     }
-    .container .card .trade-img-box {
-        /* border: teal solid; */
-        padding: 2vh 2vh 2vh 2vh;
+    
+    .blue-btn:hover {
+        color: white;
+        background-color: #187ef3;
+    }
+    
+    .green-btn {
+        color: black;
+        background: white;
+        border: #25aa51 solid 1px;
+    }
+    
+    .green-btn:hover {
+        color: white;
+        background-color: #25aa51;
+    }
+    /* ====================================== MAIN ====================================== */
+    
+    .main {
+        margin-top: 100px;
+        flex: 1 0 auto;
+    }
+    
+    .content {
+        margin: 5vh 5vh 10vh 5vh;
+        border: #343A40 solid;
+        border-radius: 5px;
+    }
+    
+    .content.h2 {
+        align-items: center;
+    }
+    /* ====================================== HOME PAGE ====================================== */
+    
+    .home-header {
+        text-align: center;
+        margin-bottom: 5vh;
+        padding-top: 25px;
+    }
+    
+    .home-subheader {
+        text-align: center;
+        margin-bottom: 2vh;
+        padding-top: 10px;
+    }
+    
+    .slide {
+        display: none;
+    }
+    
+    .slideshow-container {
+        max-width: 1000px;
+        position: relative;
+        margin: auto;
+    }
+    
+    .pointers {
+        text-align: center;
+        margin-bottom: 5vh;
+    }
+    
+    .slide-pointer {
+        height: 15px;
+        width: 15px;
+        margin: 0 2px;
+        background-color: #bbb;
+        border-radius: 50%;
+        display: inline-block;
+        transition: background-color 0.6s ease;
+    }
+    
+    .slide-image {
+        width: 100%;
+        vertical-align: middle;
+        border-radius: 18px;
+    }
+    
+    .active {
+        background-color: #717171;
+    }
+    
+    .fade {
+        -webkit-animation-name: fade;
+        -webkit-animation-duration: 1.5s;
+        animation-name: fade;
+        animation-duration: 1.5s;
+    }
+    
+    @-webkit-keyframes fade {
+        from {
+            opacity: .4
+        }
+        to {
+            opacity: 1
+        }
+    }
+    
+    @keyframes fade {
+        from {
+            opacity: .4
+        }
+        to {
+            opacity: 1
+        }
+    }
+    /* ====================================== TRADES PAGE ====================================== */
+    
+    .img-box {
         display: flex;
+        flex-wrap: wrap;
+        flex-direction: row;
+        align-items: center;
         justify-content: center;
+        /* border: green solid 2px; */
     }
-}
-
-.trade-btn-div {
-    justify-content: center;
-    display: inline-block;
-    margin-left: 4vh;
-}
-
-.trade-content p {
-    margin: 4vh 2vh 2vh 4vh;
-}
-
-.trade-btn-div .btn:not(:last-child) {
-    margin-right: 10px;
-}
-
-
-/* ====================================== CREATE TRADE PAGE ====================================== */
-
-.create-trade-div {
-    background-color: #ebebeb;
-    padding: 20px;
-}
-
-.trade-label {
-    padding: 2px 2px;
-    margin-top: 15px;
-    display: inline-block;
-}
-
-.trade-input {
-    width: 100%;
-    padding: 14px 20px;
-    margin: 8px 0;
-    display: inline-block;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-    font-size: 14px;
-}
-
-input[type="file"] {
-    display: none;
-}
-
-.file-upload {
-    background: white;
-    border: 1px solid #ccc;
-    display: inline-block;
-    padding: 10px 20px;
-    margin: 8px 0;
-    cursor: pointer;
-}
-
-
-/* ====================================== FOOTER ====================================== */
-
-footer {
-    background: #172121;
-    color: white;
-    border-top: 1px solid rgb(97, 95, 92);
-    padding: 15px 5%;
-    flex-shrink: 0;
-}
-
-.footer-ul {
-    overflow: hidden;
-    list-style-type: none;
-}
-
-.footer-ul {
-    list-style-type: none;
-    overflow: hidden;
-}
-
-.footer-li {
-    margin-bottom: 0px;
-    margin-top: 8px;
-    float: left;
-}
-
-.footer-li a {
-    color: white;
-    display: block;
-    text-align: center;
-    padding: 5px 15px;
-    text-decoration: none;
-    justify-content: space-around;
-    font-size: 16px;
-    margin-top: 2px;
-}
-
-.footer-icons {
-    display: block;
-    text-align: center;
-    padding: 10px 5px;
-    text-decoration: none;
-    float: right;
-}
-
-#icon-shift {
-    margin-right: 10px;
-}
-
-.footer-icons a {
-    display: inline-flex;
-    width: 30px;
-    height: 30px;
-    background: rgba(93, 91, 95, 0.89);
-    color: white;
-    margin: 0 6px;
-    border-radius: 50%;
-    justify-content: center;
-    align-items: center;
-    transition: 0.3s;
-    font-size: 15px;
-    text-decoration: none;
-}
-
-.instagram:hover {
-    background: rgba(226, 28, 226, 0.808);
-}
-
-.twitter:hover {
-    background: rgb(64, 141, 241);
-}
-
-.footer-icons a i {
-    transition: 0.3s all;
-}
-
-.footer-icons a:hover>i {
-    transform: scale(1.6) rotate(10deg);
-}
+    
+    .cat-img:hover {
+        /* box-shadow: 0 0 10px rgba(12, 9, 9, 0.2); */
+        -webkit-transform: scale(1.06, 1.06);
+        transform: scale(1.05, 1.05);
+    }
+    
+    .cat-img {
+        width: 300px;
+        border-radius: 15px;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+        transition: box-shadow 0.3s ease-in-out;
+        -webkit-transition: all 0.6s cubic-bezier(0.160, 0.85, 0.45, 1);
+        transition: all 0.6s cubic-bezier(0.160, 0.85, 0.45, 1);
+    }
+    
+    .cat-img::after {
+        opacity: 0;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        -webkit-transition: all 0.6s cubic-bezier(0.160, 0.85, 0.45, 1);
+        transition: all 0.6s cubic-bezier(0.160, 0.85, 0.45, 1);
+    }
+    
+    .cat-header {
+        text-align: center;
+        margin-bottom: 2vh;
+        margin-top: 2vh;
+    }
+    
+    .cat-img-box {
+        padding: 0 20px 20px 20px;
+        transition: 0.9s;
+        /* border: #343A40 solid 2px; */
+        padding-top: 20px;
+    }
+    /* ====================================== TRADES PAGE ====================================== */
+    
+    .container {
+        position: relative;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        align-content: center;
+    }
+    
+    .container .card {
+        position: relative;
+        /* background: chartreuse; */
+        margin: 10px;
+        padding: 15px;
+        display: flex;
+    }
+    
+    .container .card .trade-img-box {
+        flex: 0 0 150px;
+    }
+    
+    .container .card .trade-content {
+        margin-left: 20px;
+    }
+    
+    .trade-content h2 {
+        margin: 2vh 0vh 2vh 0vh;
+    }
+    
+    @media (max-width: 991px) {
+        .container {
+            flex-direction: column;
+        }
+    }
+    
+    @media (max-width: 768px) {
+        .container {
+            flex-direction: column;
+        }
+        .container .card {
+            flex-direction: column;
+        }
+        .container .card .trade-img-box {
+            /* border: teal solid; */
+            padding: 2vh 2vh 2vh 2vh;
+            display: flex;
+            justify-content: center;
+        }
+    }
+    
+    .trade-btn-div {
+        justify-content: center;
+        display: inline-block;
+        margin-left: 4vh;
+    }
+    
+    .trade-content p {
+        margin: 4vh 2vh 2vh 4vh;
+    }
+    
+    .trade-btn-div .btn:not(:last-child) {
+        margin-right: 10px;
+    }
+    /* ====================================== CREATE TRADE PAGE ====================================== */
+    
+    .create-trade-div {
+        background-color: #ebebeb;
+        padding: 20px;
+    }
+    
+    .trade-label {
+        padding: 2px 2px;
+        margin-top: 15px;
+        display: inline-block;
+    }
+    
+    .trade-input {
+        width: 100%;
+        padding: 14px 20px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+        font-size: 14px;
+    }
+    
+    input[type="file"] {
+        display: none;
+    }
+    
+    .file-upload {
+        background: white;
+        border: 1px solid #ccc;
+        display: inline-block;
+        padding: 10px 20px;
+        margin: 8px 0;
+        cursor: pointer;
+    }
+    /* ====================================== LOGIN ====================================== */
+    
+    .login-div {
+        margin-left: 70vh;
+        margin-right: 70vh;
+        margin-top: 5vh;
+        margin-bottom: 5vh;
+    }
+    
+    #login-img {
+        height: 200px;
+        width: 200px;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    .login-input {
+        width: 100%;
+        padding: 14px 20px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid rgb(0, 0, 0);
+        border-radius: 4px;
+        box-sizing: border-box;
+        font-size: 14px;
+    }
+    
+    @media (max-width: 991px) {
+        .login-div {
+            margin-left: 40vh;
+            margin-right: 40vh;
+        }
+    }
+    
+    @media (max-width: 768px) {
+        .login-div {
+            margin-left: 5vh;
+            margin-right: 5vh;
+        }
+    }
+    /* ====================================== FOOTER ====================================== */
+    
+    footer {
+        background: #172121;
+        color: white;
+        border-top: 1px solid rgb(97, 95, 92);
+        padding: 15px 5%;
+        flex-shrink: 0;
+    }
+    
+    .footer-ul {
+        overflow: hidden;
+        list-style-type: none;
+    }
+    
+    .footer-ul {
+        list-style-type: none;
+        overflow: hidden;
+    }
+    
+    .footer-li {
+        margin-bottom: 0px;
+        margin-top: 8px;
+        float: left;
+    }
+    
+    .footer-li a {
+        color: white;
+        display: block;
+        text-align: center;
+        padding: 5px 15px;
+        text-decoration: none;
+        justify-content: space-around;
+        font-size: 16px;
+        margin-top: 2px;
+    }
+    
+    .footer-icons {
+        display: block;
+        text-align: center;
+        padding: 10px 5px;
+        text-decoration: none;
+        float: right;
+    }
+    
+    #icon-shift {
+        margin-right: 10px;
+    }
+    
+    .footer-icons a {
+        display: inline-flex;
+        width: 30px;
+        height: 30px;
+        background: rgba(93, 91, 95, 0.89);
+        color: white;
+        margin: 0 6px;
+        border-radius: 50%;
+        justify-content: center;
+        align-items: center;
+        transition: 0.3s;
+        font-size: 15px;
+        text-decoration: none;
+    }
+    
+    .instagram:hover {
+        background: rgba(226, 28, 226, 0.808);
+    }
+    
+    .twitter:hover {
+        background: rgb(64, 141, 241);
+    }
+    
+    .footer-icons a i {
+        transition: 0.3s all;
+    }
+    
+    .footer-icons a:hover>i {
+        transform: scale(1.6) rotate(10deg);
+    }
