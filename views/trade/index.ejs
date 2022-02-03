@@ -1,0 +1,37 @@
+<%- include("../partials/header.ejs") %>
+    <main class="container">
+        <div class="row">
+            <div class="col-md-10 offset-md-1 col-xs-8 offset-xs-1 mb-5 mt-5">
+                <% if (trades.categories.length) { %>
+                    <% for (var i=0; i < trades.categories.length; i++) { %>
+                    <div class="container bg-white mb-4 mt-4 shadow-sm p-3 mb-5 bg-body rounded">
+                        <div class="row">
+                                <h2 class="text-center mt-4 mb-4">
+                                    <%= trades.categories[i] %>
+                                </h2>
+                                <% for (var j=0; j < trades.items.length; j++) { %>
+                                    <% if (trades.categories[i]===trades.items[j].category) { %>
+                                        <div class="col-sm-6 col-md-4 mb-4 mt-2">
+                                            <a class="" href="/trades/<%=trades.items[j].id%>">
+                                                <img src="/uploads/<%= trades.items[j].image %>" alt="<%=trades.items[j].name%>" class="img-fluid cat-img mx-auto d-block">
+                                            </a>
+                                        </div>
+                                            <% } %>
+                                                <% } %>
+                        </div>
+                    </div>
+                    <% } %>
+                <% } else {%>
+                    <div class="container bg-white mb-4 mt-4 shadow-sm p-3 mb-5 bg-body rounded">
+                        <div class="row">
+                            <h2 class="text-center mt-4 mb-4">Welp! No trades are available</h2>
+                            <img class="img-fluid img mt-5 mb-5 mx-auto err-img2"
+                            src="/images/error.png" alt="error">
+                        </div>
+                    </div>
+                <% } %>
+            </div>
+        </div>
+    </main>
+    </div>
+    <%- include("../partials/footer.ejs") %>

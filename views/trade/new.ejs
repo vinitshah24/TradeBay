@@ -1,0 +1,43 @@
+<%- include("../partials/header.ejs") %>
+        <main class="container">
+            <div class="row">
+                <div class="col-md-10 offset-md-1 col-xs-8 offset-xs-1 mb-2 mt-5">
+                    <div class="container mb-0 mt-4">
+                        <div class="row">
+                            <div class="col-md-6 offset-md-3 bg-white shadow-sm p-3 mb-5 bg-body rounded">
+                                <h2 class="text-center mb-4 mt-4"> Add New Trade </h2>
+                                <form action="/trades" method="POST" enctype="multipart/form-data">
+                                    <div class="mb-3 form-pad">
+                                        <label for="category" class="form-label">Category</label>
+                                        <input type="text" class="form-control" name="category" id="category">
+                                    </div>
+                                    <div class="mb-3 form-pad">
+                                        <label for="name" class="form-label">Name</label>
+                                        <input type="text" class="form-control" id="name" name="name">
+                                    </div>
+                                    <div class="mb-3 form-pad">
+                                        <label for="status" class="form-label">Status</label>
+                                        <input type="text" class="form-control" id="status" name="status">
+                                    </div>
+                                    <div class="mb-3 form-pad">
+                                        <label for="power" class="form-label">Power</label>
+                                        <input type="number" class="form-control" id="power" name="power">
+                                    </div>
+                                    <div class="mb-3 form-pad">
+                                        <label for="description" class="form-label">Description</label>
+                                        <textarea class="form-control" id="description" name="description" rows="3"></textarea>
+                                    </div>
+                                    <div class="input-group mb-3 form-pad">
+                                        <label class="input-group-text" for="image">Upload</label>
+                                        <input type="file" class="form-control img-sub" id="image" name="image">
+                                    </div>
+                                    <button type="submit" class="btn btn-success form-pad mb-4 mt-2">Submit</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <%- include("../partials/footer.ejs") %>

@@ -1,0 +1,14 @@
+<%- include("./partials/header.ejs") %>
+        <main class="container">
+            <div class="row">
+                <div class="col-md-10 offset-md-1 col-xs-8 offset-xs-1 mb-4">
+                    <div class="mb-5 mt-5">
+                        <h2 class="text-center"><%=error.status%> Error</h2> 
+                        <p class="text-center"><%=error.message%></p>
+                        <img class="img-fluid img mt-5 mb-5 mx-auto d-block err-img"
+                                    src="/images/404.png" alt="error">
+                    </div>
+                </div>
+            </div>
+        </main>
+        <%- include("./partials/footer.ejs") %>
