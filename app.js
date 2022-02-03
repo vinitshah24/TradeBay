@@ -32,7 +32,7 @@ app.use(methodOverride("_method"));
 
 // Setup routes
 app.get("/", (req, res) => {
-    res.render("index")
+    res.render("index", {title: "Home"})
 });
 
 // Trades Routes
@@ -40,12 +40,12 @@ app.use("/trades", tradeRoutes);
 
 app.get('/login', (req, res) => {
     //res.json(students);
-    res.render('./user/login');
+    res.render('./user/login', {title: "Login"});
 });
 
 app.get('/signup', (req, res) => {
     //res.json(students);
-    res.render('./user/signup');
+    res.render('./user/signup', {title: "Signup"});
 });
 
 // Unknown page Route
@@ -63,7 +63,7 @@ app.use((err, req, res, next) => {
         err.message = ("Internal Server Error!");
     }
     res.status(err.status)
-    res.render("error", { error: err })
+    res.render("error", {title: "Error" , error: err })
 })
 
 // Start the server

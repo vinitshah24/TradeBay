@@ -12,7 +12,9 @@
         crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css">
     <link rel="shortcut icon" href="/images/favicon.ico">
-    <title>Home</title>
+    <title>
+        <%= title %>
+    </title>
 </head>
 
 <body>
@@ -29,11 +31,14 @@
                     </button>
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <div class="navbar-nav ms-auto">
-                            <a class="nav-link active" aria-current="page" href="/">Home</a>
-                            <a class="nav-link" href="/trades">Trades</a>
-                            <a class="nav-link" href="/trades/new">Start Trading</a>
-                            <a class="nav-link" href="/login">Login</a>
-                            <a class="nav-link" href="/signup">Signup</a>
+                            <a class="nav-link <%= title === 'Home' ? 'active' : '' %>" aria-current="page"
+                                href="/">Home</a>
+                            <a class="nav-link <%= title === 'Trades' || title === 'Trade' ? 'active' : '' %>"
+                                href="/trades">Trades</a>
+                            <a class="nav-link <%= title === 'Create Trade' ? 'active' : '' %>" href="/trades/new">Start
+                                Trading</a>
+                            <a class="nav-link <%= title === 'Login' ? 'active' : '' %>" href="/login">Login</a>
+                            <a class="nav-link <%= title === 'Signup' ? 'active' : '' %>" href="/signup">Signup</a>
                         </div>
                     </div>
                 </div>

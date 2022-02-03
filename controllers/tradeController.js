@@ -5,14 +5,14 @@ exports.index = (req, res) => {
     // res.send("Send all trades");
     // res.send(model.find())
     let trades = model.find()
-    res.render("./trade/index", { trades })
+    res.render("./trade/index", { title: "Trades", trades: trades })
 
 };
 
 // GET: /trades/new - send html form for creating new trade
 exports.new = (req, res) => {
     // res.send("Send new trade form");
-    res.render("./trade/new")
+    res.render("./trade/new", { title: "Create Trade" })
 };
 
 // GET: /trades/:id - get trade for id
@@ -22,7 +22,7 @@ exports.show = (req, res, next) => {
     let trade = model.findById(id);
     // res.send(trade);
     if (trade) {
-        res.render("./trade/show", { trade })
+        res.render("./trade/show", { title: "Trade", trade: trade })
     } else {
         // res.status(404).send("Cannot find the trade with id " + req.params.id)
         let err = new Error("Cannot find the trade with id " + id);
@@ -54,7 +54,8 @@ exports.edit = (req, res, next) => {
     let id = req.params.id;
     let trade = model.findById(id);
     if (trade) {
-        res.render("./trade/edit", { trade })
+        console.log({ title: "Trade", trade: trade })
+        res.render("./trade/edit", { title: "Trade", trade: trade })
     }
     else {
         // res.status(404).send("Cannot find the trade with id " + req.params.id)
