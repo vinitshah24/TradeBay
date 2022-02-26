@@ -2,6 +2,7 @@ const express = require("express");
 const morgan = require("morgan");
 const methodOverride = require("method-override")
 
+const mainRoutes = require("./routes/mainRoutes");
 const tradeRoutes = require("./routes/tradeRoutes");
 const multer = require("multer");
 
@@ -30,23 +31,10 @@ app.use(multer({storage: fileStorage}).single("image"));
 app.use(morgan("tiny"));
 app.use(methodOverride("_method"));
 
-// Setup routes
-app.get("/", (req, res) => {
-    res.render("index", {title: "Home"})
-});
-
+// Main routes
+app.use("/", mainRoutes);
 // Trades Routes
 app.use("/trades", tradeRoutes);
-
-app.get('/login', (req, res) => {
-    //res.json(students);
-    res.render('./user/login', {title: "Login"});
-});
-
-app.get('/signup', (req, res) => {
-    //res.json(students);
-    res.render('./user/signup', {title: "Signup"});
-});
 
 // Unknown page Route
 app.use((req, res, next) => {
