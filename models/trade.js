@@ -9,6 +9,7 @@ const trades = [
         description: "Caterpie is a Pokémon that resembles a green caterpillar with a yellow underside and teardrop-shaped tail.",
         status: "Sold",
         power: 50,
+        condition: "New",
         image: "caterpie.jpg"
     },
     {
@@ -18,6 +19,7 @@ const trades = [
         description: "Vulpix is a Fire type Pokémon introduced in Generation 1 . It is known as the Fox Pokémon",
         status: "Sold",
         power: 110,
+        condition: "Used",
         image: "vulpix.jpg"
     },
     {
@@ -27,6 +29,7 @@ const trades = [
         description: "Totodile is a Water type Pokémon introduced in Generation 2. It is known as the Big Jaw Pokémon.",
         status: "Available",
         power: 70,
+        condition: "New",
         image: "totodile.jpg"
     },
     {
@@ -36,6 +39,7 @@ const trades = [
         description: "Goku is a Saiyan from Planet Vegeta. Three years after his birth, his parents sent him away from Planet Vegeta to Planet Earth due to his father's suspicion of Freeza the Evil Emperor.",
         status: "Available",
         power: 350,
+        condition: "Used",
         image: "son_goku.png"
     },
     {
@@ -45,6 +49,7 @@ const trades = [
         description: "Vegeta is the prince of an extraterrestrial warrior race known as the Saiyans. He is extremely arrogant, proud and hardworking; constantly referring to his heritage and royal status throughout the series.",
         status: "Sold",
         power: 500,
+        condition: "New",
         image: "vegeta.png"
     },
     {
@@ -54,6 +59,7 @@ const trades = [
         description: "Zamasu is a Potara fusion born of the union between Goku Black (the original present Zamasu in the original present Goku's body) and Future Zamasu. He is the final antagonist of the Future Trunks Saga.",
         status: "Available",
         power: 120,
+        condition: "Used",
         image: "zamasu.png"
     }
 ]
@@ -86,6 +92,7 @@ exports.updateById = (id, updatedTrade) => {
         if (trade.description !== updatedTrade.description) trade.description = updatedTrade.description;
         if (trade.status !== updatedTrade.status) trade.status = updatedTrade.status;
         if (trade.power !== updatedTrade.power) trade.power = updatedTrade.power;
+        if (trade.condition !== updatedTrade.condition) trade.condition = updatedTrade.condition;
         if (updatedTrade.image !== undefined) trade.image = updatedTrade.image;
         // console.log(trade);
         // console.log(trades);
