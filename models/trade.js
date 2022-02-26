@@ -72,14 +72,14 @@ exports.find = () => {
 };
 exports.findById = (id) => trades.find(trade => trade.id === id);
 exports.save = (trade) => {
-    console.log("TRADE SAVE: " + trade)
+    // console.log("TRADE SAVE: " + trade)
     trade.id = uuidv4();
     trades.push(trade);
 };
 
 exports.updateById = (id, updatedTrade) => {
     let trade = trades.find(trade => trade.id === id);
-    console.log(updatedTrade.image)
+    // console.log(updatedTrade.image)
     if (trade) {
         if (trade.name !== updatedTrade.name) trade.name = updatedTrade.name;
         if (trade.category !== updatedTrade.category) trade.category = updatedTrade.category;
@@ -87,8 +87,8 @@ exports.updateById = (id, updatedTrade) => {
         if (trade.status !== updatedTrade.status) trade.status = updatedTrade.status;
         if (trade.power !== updatedTrade.power) trade.power = updatedTrade.power;
         if (updatedTrade.image !== undefined) trade.image = updatedTrade.image;
-        console.log(trade);
-        console.log(trades);
+        // console.log(trade);
+        // console.log(trades);
         return true;
     } else {
         return false;

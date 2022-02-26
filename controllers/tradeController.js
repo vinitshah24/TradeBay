@@ -42,7 +42,7 @@ exports.create = (req, res) => {
     // console.log(reqData);
     // console.log(req.file);
     reqData.image = req.file.filename;
-    console.log(reqData);
+    // console.log(reqData);
     model.save(reqData);
     res.redirect("/trades");
 }
@@ -54,7 +54,7 @@ exports.edit = (req, res, next) => {
     let id = req.params.id;
     let trade = model.findById(id);
     if (trade) {
-        console.log({ title: "Trade", trade: trade })
+        // console.log({ title: "Trade", trade: trade })
         res.render("./trade/edit", { title: "Trade", trade: trade })
     }
     else {
@@ -73,7 +73,7 @@ exports.update = (req, res, next) => {
         trade.image = req.file.filename;
     }
     let id = req.params.id;
-    console.log("req.file.filename " + req.file)
+    // console.log("req.file.filename " + req.file)
     if (model.updateById(id, trade)) {
         res.redirect("/trades/" + id)
     }
