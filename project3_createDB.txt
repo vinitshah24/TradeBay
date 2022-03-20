@@ -1,9 +1,9 @@
 // mongod --port 27018
 // mongo --port 27018
 
-use tradebay
-db.dropDatabase()
-show dbs
+// use tradebay
+// db.dropDatabase()
+// show dbs
 
 use tradebay
 db.createCollection("trades")
