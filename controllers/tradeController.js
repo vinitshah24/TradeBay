@@ -1,100 +1,149 @@
 const model = require("../models/trade")
 
 // GET: /trades - send all trades
-exports.index = (req, res) => {
-    // res.send("Send all trades");
-    // res.send(model.find())
-    let trades = model.find()
-    res.render("./trade/index", { title: "Trades", trades: trades })
-
+exports.index = (req, res, next) => {
+    model.find()
+        .then(trades => {
+            output = {}
+            uniqueCategories = []
+            for (var i = 0; i < trades.length; i++) {
+                if (uniqueCategories.includes(trades[i].category) === false) {
+                    uniqueCategories.push(trades[i].category)
+                }
+            }
+            output.categories = uniqueCategories
+            output.items = trades
+            res.render("./trade/index", { title: "Trades", trades: output })
+        })
+        .catch(err => next(err))
 };
 
 // GET: /trades/new - send html form for creating new trade
 exports.new = (req, res) => {
-    // res.send("Send new trade form");
     res.render("./trade/new", { title: "Create Trade" })
 };
 
 // GET: /trades/:id - get trade for id
 exports.show = (req, res, next) => {
-    // res.send("Send trade for ID: " + req.params.id);
     let id = req.params.id;
-    let trade = model.findById(id);
-    // res.send(trade);
-    if (trade) {
-        res.render("./trade/show", { title: "Trade", trade: trade })
-    } else {
-        // res.status(404).send("Cannot find the trade with id " + req.params.id)
-        let err = new Error("Cannot find the trade with id " + id);
-        err.status = 404;
-        next(err);
+    if (!id.match(/^[0-9a-fA-F]{24}$/)) {
+        let err = new Error("Invalid Trade ID: " + id);
+        err.status = 400;
+        return next(err);
     }
+    model.findById(id)
+        .then(trade => {
+            if (trade) {
+                res.render("./trade/show", { title: "Trade", trade: trade })
+            } else {
+                let err = new Error("Cannot find the trade with id " + id);
+                err.status = 404;
+                next(err);
+            }
+        })
+        .catch(err => {
+            if (err.name === "ValidationError") {
+                err.status = 400;
+            }
+            next(err);
+        });
 };
 
 // POST: /trades - create new trade
-exports.create = (req, res) => {
-    // res.send("Created new trade");
-    // console.log(req.body);
-    // let trade = req.body;
-    // model.save(trade);
-    // res.redirect("/trades");
-    const reqData = JSON.parse(JSON.stringify(req.body));
-    // console.log(reqData);
-    // console.log(req.file);
-    reqData.image = req.file.filename;
-    // console.log(reqData);
-    model.save(reqData);
-    res.redirect("/trades");
-}
-
-
-// GET: /trades/:id/edit - send form for editing existing trade
-exports.edit = (req, res, next) => {
-    // res.send("Send the edit form for ID: " + req.params.id);
-    let id = req.params.id;
-    let trade = model.findById(id);
-    if (trade) {
-        // console.log({ title: "Trade", trade: trade })
-        res.render("./trade/edit", { title: "Trade", trade: trade })
+exports.create = (req, res, next) => {
+    let trade = new model(req.body);
+    try {
+        trade.image = req.file.filename;
     }
-    else {
-        // res.status(404).send("Cannot find the trade with id " + req.params.id)
-        let err = new Error("Cannot find the trade with id " + id);
+    catch (exception) {
+        let err = new Error("Trade image is missing");
         err.status = 404;
         next(err);
     }
+
+    trade.save()
+        .then((trade) => res.redirect("/trades"))
+        .catch(err => {
+            if (err.name === "ValidationError") {
+                err.status = 404;
+            }
+            next(err)
+        });
+}
+
+// GET: /trades/:id/edit - send form for editing existing trade
+exports.edit = (req, res, next) => {
+    let id = req.params.id;
+    if (!id.match(/^[0-9a-fA-F]{24}$/)) {
+        let err = new Error("Invalid trade id");
+        err.status = 400;
+        return next(err);
+    }
+
+    model.findById(id)
+        .then(trade => {
+            if (trade) {
+                return res.render("./trade/edit", { title: "Trade", trade: trade });
+            }
+            else {
+                let err = new Error("Cannot find the trade with id " + id);
+                err.status = 404;
+                next(err);
+            }
+        })
+        .catch(err => next(err))
 };
 
 // PUT: /trades/:id - update the trade for id
 exports.update = (req, res, next) => {
-    // res.send("Update the trade with ID: " + req.params.id);
     let trade = req.body;
     if (req.file !== undefined) {
         trade.image = req.file.filename;
     }
     let id = req.params.id;
-    // console.log("req.file.filename " + req.file)
-    if (model.updateById(id, trade)) {
-        res.redirect("/trades/" + id)
+    if (!id.match(/^[0-9a-fA-F]{24}$/)) {
+        let err = new Error("Invalid trade id");
+        err.status = 400;
+        return next(err);
     }
-    else {
-        // res.status(404).send("Cannot find the trade with id " + req.params.id)
-        let err = new Error("Cannot find the trade with id " + id);
-        err.status = 404;
-        next(err);
-    }
+    model.findByIdAndUpdate(id, trade, { useFindAndModify: false, runValidators: true })
+        .then(trade => {
+            if (trade) {
+                res.redirect("/trades/" + id)
+            }
+            else {
+                let err = new Error("Cannot find the trade with id " + id);
+                err.status = 404;
+                next(err);
+            }
+        })
+        .catch(err => {
+            if (err.name === "ValidationError") {
+                err.status = 400;
+            }
+            next(err);
+        });
 };
 
 // DELETE: /trades/:id - delete the trade with id
 exports.delete = (req, res, next) => {
-    // res.send("Delete the trade with ID: " + req.params.id);
     let id = req.params.id;
-    if (model.deleteById(id)) {
-        res.redirect("/trades")
-    } else {
-        // res.status(404).send("Cannot find the trade with id " + id)
-        let err = new Error("Cannot find the trade with id " + id);
-        err.status = 404;
-        next(err);
+    if (!id.match(/^[0-9a-fA-F]{24}$/)) {
+        let err = new Error("Invalid trade id");
+        err.status = 400;
+        return next(err);
     }
+
+    model.findByIdAndDelete(id, { runValidators: true })
+        .then(trade => {
+            if (trade) {
+                res.redirect("/trades");
+            }
+            else {
+                let err = new Error("Cannot find the trade with id " + id);
+                err.status = 404;
+                next(err);
+            }
+        })
+        .catch(err => next(err))
 };

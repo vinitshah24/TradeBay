@@ -9,35 +9,35 @@
                             <form action="/trades" method="POST" enctype="multipart/form-data">
                                 <div class="mb-3 form-pad">
                                     <label for="category" class="form-label">Category</label>
-                                    <input type="text" class="form-control" name="category" id="category">
+                                    <input type="text" class="form-control" name="category" id="category" required>
                                 </div>
                                 <div class="mb-3 form-pad">
                                     <label for="name" class="form-label">Name</label>
-                                    <input type="text" class="form-control" id="name" name="name">
+                                    <input type="text" class="form-control" id="name" name="name" required>
                                 </div>
                                 <div class="mb-3 form-pad">
                                     <label for="status" class="form-label">Status</label>
-                                    <input type="text" class="form-control" id="status" name="status">
+                                    <input type="text" class="form-control" id="status" name="status" required>
                                 </div>
                                 <div class="mb-3 form-pad">
                                     <label for="power" class="form-label">Power</label>
-                                    <input type="number" class="form-control" id="power" name="power">
+                                    <input type="number" class="form-control" id="power" name="power" min="1" max="1000" required>
                                 </div>
                                 <div class="mb-3 form-pad">
                                     <label for="condition" class="form-label">Condition</label>
-                                    <select class="form-control" id="condition" name="condition">
+                                    <select class="form-control" id="condition" name="condition" required>
                                         <option class="form-control" value="New">New</option>
                                         <option class="form-control" value="Used">Used</option>
                                     </select>
                                 </div>
                                 <div class="mb-3 form-pad">
                                     <label for="description" class="form-label">Description</label>
-                                    <textarea class="form-control" id="description" name="description"
-                                        rows="3"></textarea>
+                                    <textarea class="form-control" id="description" name="description" rows="3" required
+                                        minlength="10"></textarea>
                                 </div>
                                 <div class="input-group mb-3 form-pad">
                                     <label class="input-group-text" for="image">Upload</label>
-                                    <input type="file" class="form-control img-sub" id="image" name="image">
+                                    <input type="file" class="form-control img-sub" id="image" name="image" required>
                                 </div>
                                 <button type="submit" class="btn btn-success form-pad mb-4 mt-2">Submit</button>
                             </form>

@@ -12,7 +12,7 @@
                                 <% for (var j=0; j < trades.items.length; j++) { %>
                                     <% if (trades.categories[i]===trades.items[j].category) { %>
                                         <div class="col-sm-6 col-md-4 mb-4 mt-2">
-                                            <a class="" href="/trades/<%=trades.items[j].id%>">
+                                            <a class="" href="/trades/<%=trades.items[j]._id%>">
                                                 <img src="/uploads/<%= trades.items[j].image %>" alt="<%=trades.items[j].name%>" class="img-fluid cat-img mx-auto d-block">
                                             </a>
                                         </div>

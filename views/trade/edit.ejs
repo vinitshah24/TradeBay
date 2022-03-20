@@ -6,31 +6,31 @@
                     <div class="row">
                         <div class="col-md-6 offset-md-3 bg-white shadow-sm p-3 mb-5 bg-body rounded">
                             <h2 class="text-center mb-4 mt-4"> Modify Trade </h2>
-                            <form action="/trades/<%=trade.id%>?_method=PUT" method="POST" enctype="multipart/form-data">
+                            <form action="/trades/<%=trade._id%>?_method=PUT" method="POST" enctype="multipart/form-data">
                                 <div class="mb-3 form-pad">
                                     <label for="category" class="form-label">Category</label>
                                     <input type="text" class="form-control" name="category" id="category"
-                                        value="<%=trade.category%>">
+                                        value="<%=trade.category%>" required>
                                 </div>
                                 <div class="mb-3 form-pad">
                                     <label for="name" class="form-label">Name</label>
                                     <input type="text" class="form-control" id="name" name="name"
-                                        value="<%=trade.name%>">
+                                        value="<%=trade.name%>" required>
                                 </div>
                                 <div class="mb-3 form-pad">
                                     <label for="status" class="form-label">Status</label>
                                     <input type="text" class="form-control" id="status" name="status"
-                                        value="<%=trade.status%>">
+                                        value="<%=trade.status%>" required>
                                 </div>
                                 <div class="mb-3 form-pad">
                                     <label for="power" class="form-label">Power</label>
                                     <input type="number" class="form-control" id="power" name="power"
-                                        value="<%=trade.power%>">
+                                        value="<%=trade.power%>" min="1" max="1000" required>
                                 </div>
 
                                 <div class="mb-3 form-pad">
                                     <label for="condition" class="form-label">Condition</label>
-                                    <select class="form-control" id="condition" name="condition">
+                                    <select class="form-control" id="condition" name="condition" required>
                                         <option <%= trade.condition == 'New' ? 'selected' : '' %> class="form-control" value="New">New</option>
                                         <option <%= trade.condition == 'Used' ? 'selected' : '' %> class="form-control" value="Used">Used</option>
                                     </select>
@@ -39,7 +39,7 @@
                                 <div class="mb-3 form-pad">
                                     <label for="description" class="form-label">Description</label>
                                     <textarea class="form-control" id="description" name="description"
-                                        rows="3"><%=trade.description%></textarea>
+                                        rows="3" required minlength="10"><%=trade.description%></textarea>
                                 </div>
                                 <div class="input-group mb-3 form-pad">
                                     <label class="input-group-text" for="image">Upload</label>
