@@ -26,15 +26,12 @@ exports.new = (req, res) => {
 // GET: /trades/:id - get trade for id
 exports.show = (req, res, next) => {
     let id = req.params.id;
-    if (!id.match(/^[0-9a-fA-F]{24}$/)) {
-        let err = new Error("Invalid Trade ID: " + id);
-        err.status = 400;
-        return next(err);
-    }
-    model.findById(id)
+    model.findById(id).populate('author', 'firstName lastName')
         .then(trade => {
             if (trade) {
-                res.render("./trade/show", { title: "Trade", trade: trade })
+                let id = req.session.user;
+                console.log("Found session ID: " + id)
+                res.render("./trade/show", { title: "Trade", trade: trade, user_id: id })
             } else {
                 let err = new Error("Cannot find the trade with id " + id);
                 err.status = 404;
@@ -52,6 +49,7 @@ exports.show = (req, res, next) => {
 // POST: /trades - create new trade
 exports.create = (req, res, next) => {
     let trade = new model(req.body);
+    trade.author = req.session.user;
     try {
         trade.image = req.file.filename;
     }
@@ -74,12 +72,6 @@ exports.create = (req, res, next) => {
 // GET: /trades/:id/edit - send form for editing existing trade
 exports.edit = (req, res, next) => {
     let id = req.params.id;
-    if (!id.match(/^[0-9a-fA-F]{24}$/)) {
-        let err = new Error("Invalid trade id");
-        err.status = 400;
-        return next(err);
-    }
-
     model.findById(id)
         .then(trade => {
             if (trade) {
@@ -101,11 +93,6 @@ exports.update = (req, res, next) => {
         trade.image = req.file.filename;
     }
     let id = req.params.id;
-    if (!id.match(/^[0-9a-fA-F]{24}$/)) {
-        let err = new Error("Invalid trade id");
-        err.status = 400;
-        return next(err);
-    }
     model.findByIdAndUpdate(id, trade, { useFindAndModify: false, runValidators: true })
         .then(trade => {
             if (trade) {
@@ -128,12 +115,6 @@ exports.update = (req, res, next) => {
 // DELETE: /trades/:id - delete the trade with id
 exports.delete = (req, res, next) => {
     let id = req.params.id;
-    if (!id.match(/^[0-9a-fA-F]{24}$/)) {
-        let err = new Error("Invalid trade id");
-        err.status = 400;
-        return next(err);
-    }
-
     model.findByIdAndDelete(id, { runValidators: true })
         .then(trade => {
             if (trade) {

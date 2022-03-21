@@ -1,0 +1,37 @@
+<%- include("../partials/header.ejs") %>
+    <main class="container">
+        <div class="row">
+            <div class="col-md-10 offset-md-1 col-xs-8 offset-xs-1">
+                <div class="container mb-5 mt-5">
+                    <%- include("../partials/alert.ejs") %>
+                        <div class="row shadow-sm p-3 mt-2 mb-5 bg-white rounded">
+                            <br>
+                            <% if (user) { %>
+                                <h2 class="text-center">Welcome <%= user.firstName + " " + user.lastName %>
+                                </h2>
+                                <% if (trades.length){ %>
+                                    <h4>Your Trades:</h4>
+                                    <div class="container bg-white mb-4 mt-0 shadow-sm p-3 bg-body rounded">
+                                        <div class="row">
+                                            <% trades.forEach(trade=> { %>
+                                                <div class="col-sm-6 col-md-4 mb-4 mt-0">
+                                                    <a class="" href="/trades/<%=trade._id%>">
+                                                        <img src="/uploads/<%= trade.image %>" alt="<%=trade.name%>"
+                                                            class="img-fluid cat-img mx-auto d-block">
+                                                    </a>
+                                                </div>
+                                                <% }) %>
+                                        </div>
+                                    </div>
+                                    <% } else {%>
+                                        <p>You have not added any Trades!</p>
+                                        <% }%>
+                                            <% } else {%>
+                                                <h2>Login to view Profile!</h2>
+                                                <% }%>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <%- include("../partials/footer.ejs") %>

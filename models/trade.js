@@ -6,6 +6,10 @@ const tradeSchema = new Schema({
         type: String,
         required: [true, "Trade name is required"]
     },
+    author: {
+        type: Schema.Types.ObjectId,
+        ref: 'User'
+    },
     category: {
         type: String,
         required: [true, "Trade category is required"]
