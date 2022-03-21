@@ -7,8 +7,7 @@
                         <div class="row shadow-sm p-3 mt-2 mb-5 bg-white rounded">
                             <br>
                             <% if (user) { %>
-                                <h2 class="text-center">Welcome <%= user.firstName + " " + user.lastName %>
-                                </h2>
+                                <h2 class="text-center">Welcome <%= user.firstName %>!</h2>
                                 <% if (trades.length){ %>
                                     <h4>Your Trades:</h4>
                                     <div class="container bg-white mb-4 mt-0 shadow-sm p-3 bg-body rounded">

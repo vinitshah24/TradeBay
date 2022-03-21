@@ -58,9 +58,12 @@ exports.create = (req, res, next) => {
         err.status = 404;
         next(err);
     }
-
     trade.save()
-        .then((trade) => res.redirect("/trades"))
+        .then((trade) => {
+            req.flash("success", "New Trade added successfully!")
+            res.redirect("/trades")
+        }
+        )
         .catch(err => {
             if (err.name === "ValidationError") {
                 err.status = 404;
@@ -96,6 +99,7 @@ exports.update = (req, res, next) => {
     model.findByIdAndUpdate(id, trade, { useFindAndModify: false, runValidators: true })
         .then(trade => {
             if (trade) {
+                req.flash("success", "Trade: " + id + " updated successfully!")
                 res.redirect("/trades/" + id)
             }
             else {
@@ -118,6 +122,7 @@ exports.delete = (req, res, next) => {
     model.findByIdAndDelete(id, { runValidators: true })
         .then(trade => {
             if (trade) {
+                req.flash("success", "Trade " + id + " deleted successfully!")
                 res.redirect("/trades");
             }
             else {

@@ -58,19 +58,21 @@ exports.postLogin = (req, res, next) => {
 exports.getProfile = (req, res) => {
     let id = req.session.user;
     Promise.all([User.findById(id), Trade.find({ author: id })])
-    .then(results => {
-        console.log(results)
-        const [user, trades] = results;
-        res.render('./user/profile', { title: "Profile", user, trades })
-    })
-    .catch(err => next(err));
+        .then(results => {
+            console.log(results)
+            const [user, trades] = results;
+            res.render('./user/profile', { title: "Profile", user, trades })
+        })
+        .catch(err => next(err));
 }
 
-exports.getLogout = (req, res, err) => {
+exports.getLogout = (req, res, next) => {
     req.session.destroy(err => {
-        if (err)
+        if (err) {
             return next(err);
-        else
+        }
+        else {
             res.redirect('/');
+        }
     })
 }
