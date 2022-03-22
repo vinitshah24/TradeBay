@@ -133,3 +133,208 @@ exports.delete = (req, res, next) => {
         })
         .catch(err => next(err))
 };
+
+exports.rate = (req, res, next) => {
+    let trade_id = req.body.trade;
+    // console.log("Trade ID: " + trade_id);
+    user = req.session.user;
+    // console.log("USER: " + user);
+    model.findById(trade_id)
+        .then(trade => {
+            if (trade) {
+                // console.log("Trade ratings: " + trade.ratings);
+                let foundRatings = trade.ratings
+                if (foundRatings.includes(user)) {
+                    req.flash("error", "You have already rated the Trade!")
+                    res.redirect("/trades/" + trade_id);
+                }
+                else {
+                    model.findOneAndUpdate({ _id: trade_id }, { $push: { ratings: user } }, { useFindAndModify: false, runValidators: true })
+                        .then(trade => {
+                            if (trade) {
+                                req.flash("success", "You have successfully liked the trade with id " + trade_id + "!")
+                                res.redirect("/trades");
+                            }
+                            else {
+                                let err = new Error("Cannot find the trade with id " + trade_id);
+                                err.status = 404;
+                                next(err);
+                            }
+                        })
+                        .catch(err => next(err))
+                    req.flash("success", "You have successfully rated the Trade!")
+                    res.redirect("/trades/" + trade_id);
+                }
+            }
+            else {
+                let err = new Error("Cannot find the trade with id " + trade_id);
+                err.status = 404;
+                next(err);
+            }
+        })
+        .catch(err => next(err))
+};
+
+exports.rate = (req, res, next) => {
+    let trade_id = req.body.trade;
+    // console.log("Trade ID: " + trade_id);
+    user = req.session.user;
+    // console.log("USER: " + user);
+    model.findById(trade_id)
+        .then(trade => {
+            if (trade) {
+                // console.log("Trade ratings: " + trade.ratings);
+                let foundRatings = trade.ratings
+                if (foundRatings.includes(user)) {
+                    req.flash("error", "You have already rated the Trade!")
+                    res.redirect("/trades/" + trade_id);
+                }
+                else {
+                    model.findOneAndUpdate({ _id: trade_id }, { $push: { ratings: user } }, { useFindAndModify: false, runValidators: true })
+                        .then(trade => {
+                            if (trade) {
+                                req.flash("success", "You have successfully liked the trade with id " + trade_id + "!")
+                                res.redirect("/trades");
+                            }
+                            else {
+                                let err = new Error("Cannot find the trade with id " + trade_id);
+                                err.status = 404;
+                                next(err);
+                            }
+                        })
+                        .catch(err => next(err))
+                    req.flash("success", "You have successfully rated the Trade!")
+                    res.redirect("/trades/" + trade_id);
+                }
+            }
+            else {
+                let err = new Error("Cannot find the trade with id " + trade_id);
+                err.status = 404;
+                next(err);
+            }
+        })
+        .catch(err => next(err))
+};
+
+exports.rate = (req, res, next) => {
+    let trade_id = req.body.trade;
+    // console.log("Trade ID: " + trade_id);
+    user = req.session.user;
+    // console.log("USER: " + user);
+    model.findById(trade_id)
+        .then(trade => {
+            if (trade) {
+                // console.log("Trade ratings: " + trade.ratings);
+                let foundRatings = trade.ratings
+                if (foundRatings.includes(user)) {
+                    req.flash("error", "You have already rated the Trade!")
+                    res.redirect("/trades/" + trade_id);
+                }
+                else {
+                    model.findOneAndUpdate({ _id: trade_id }, { $push: { ratings: user } }, { useFindAndModify: false, runValidators: true })
+                        .then(trade => {
+                            if (trade) {
+                                req.flash("success", "You have successfully liked the trade with id " + trade_id + "!")
+                                res.redirect("/trades");
+                            }
+                            else {
+                                let err = new Error("Cannot find the trade with id " + trade_id);
+                                err.status = 404;
+                                next(err);
+                            }
+                        })
+                        .catch(err => next(err))
+                    req.flash("success", "You have successfully rated the Trade!")
+                    res.redirect("/trades/" + trade_id);
+                }
+            }
+            else {
+                let err = new Error("Cannot find the trade with id " + trade_id);
+                err.status = 404;
+                next(err);
+            }
+        })
+        .catch(err => next(err))
+};
+
+exports.like = (req, res, next) => {
+    let trade_id = req.body.trade;
+    // console.log("Trade ID: " + trade_id);
+    user = req.session.user;
+    // console.log("USER: " + user);
+    model.findById(trade_id)
+        .then(trade => {
+            if (trade) {
+                // console.log("Trade ratings: " + trade.ratings);
+                let foundRatings = trade.ratings
+                if (foundRatings.includes(user)) {
+                    req.flash("error", "You have already rated the Trade!")
+                    res.redirect("/trades/" + trade_id);
+                }
+                else {
+                    model.findOneAndUpdate({ _id: trade_id }, { $push: { ratings: user } }, { useFindAndModify: false, runValidators: true })
+                        .then(trade => {
+                            if (trade) {
+                                req.flash("success", "You have successfully liked the trade with id " + trade_id + "!")
+                                res.redirect("/trades");
+                            }
+                            else {
+                                let err = new Error("Cannot find the trade with id " + trade_id);
+                                err.status = 404;
+                                next(err);
+                            }
+                        })
+                        .catch(err => next(err))
+                    req.flash("success", "You have successfully rated the Trade!")
+                    res.redirect("/trades/" + trade_id);
+                }
+            }
+            else {
+                let err = new Error("Cannot find the trade with id " + trade_id);
+                err.status = 404;
+                next(err);
+            }
+        })
+        .catch(err => next(err))
+};
+
+exports.dislike = (req, res, next) => {
+    let trade_id = req.body.trade;
+    // console.log("Trade ID: " + trade_id);
+    user = req.session.user;
+    // console.log("USER: " + user);
+    model.findById(trade_id)
+        .then(trade => {
+            if (trade) {
+                // console.log("Trade ratings: " + trade.ratings);
+                let foundRatings = trade.ratings
+                if (!foundRatings.includes(user)) {
+                    req.flash("error", "You have not rated the Trade!")
+                    res.redirect("/trades/" + trade_id);
+                }
+                else {
+                    model.findByIdAndUpdate({ _id: trade_id }, { $pull: { ratings: user } }, { safe: true, upsert: true })
+                        .then(trade => {
+                            if (trade) {
+                                req.flash("success", "You have successfully disliked the trade with id " + trade_id + "!")
+                                res.redirect("/trades");
+                            }
+                            else {
+                                let err = new Error("Cannot find the trade with id " + trade_id);
+                                err.status = 404;
+                                next(err);
+                            }
+                        })
+                        .catch(err => next(err))
+                    req.flash("success", "You have successfully disliked the Trade!")
+                    res.redirect("/trades/" + trade_id);
+                }
+            }
+            else {
+                let err = new Error("Cannot find the trade with id " + trade_id);
+                err.status = 404;
+                next(err);
+            }
+        })
+        .catch(err => next(err))
+};

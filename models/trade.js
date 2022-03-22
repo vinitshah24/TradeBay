@@ -34,7 +34,11 @@ const tradeSchema = new Schema({
     image: {
         type: String,
         required: [true, "Trade image is required"]
-    }
+    },
+    ratings: [{
+        type: Schema.Types.ObjectId,
+        ref: 'User'
+    }]
 })
 
 // Collection name is stories
