@@ -41,8 +41,7 @@
                                         <% } else { %>
                                             <p class="mt-3 ms-2"><b>Are you interested in this trade?</b></p>
                                             <div class="mt-2 ms-2 btn-group">
-                                                <a href="/trades" class="btn btn-success me-2">Trade</a>
-
+                                                <a href="/trades/<%=trade._id%>/swap" class="btn btn-success me-2">Trade</a>
 
                                                 <% if (!trade.ratings.includes(user_id.toString())) { %>
                                                 <form action="/trades/like" method="POST">

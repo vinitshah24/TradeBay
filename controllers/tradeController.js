@@ -15,7 +15,11 @@ exports.index = (req, res, next) => {
             output.items = trades
             res.render("./trade/index", { title: "Trades", trades: output })
         })
-        .catch(err => next(err))
+        .catch(err => {
+            // next(err)
+            req.flash("error", "Internal Server Error occurred while processing the request!")
+            redirect('back')
+        })
 };
 
 // GET: /trades/new - send html form for creating new trade
@@ -86,7 +90,11 @@ exports.edit = (req, res, next) => {
                 next(err);
             }
         })
-        .catch(err => next(err))
+        .catch(err => {
+            // next(err)
+            req.flash("error", "Internal Server Error occurred while processing the request!")
+            redirect('back')
+        })
 };
 
 // PUT: /trades/:id - update the trade for id
@@ -131,7 +139,11 @@ exports.delete = (req, res, next) => {
                 next(err);
             }
         })
-        .catch(err => next(err))
+        .catch(err => {
+            // next(err)
+            req.flash("error", "Internal Server Error occurred while processing the request!")
+            redirect('back')
+        })
 };
 
 exports.rate = (req, res, next) => {
@@ -149,14 +161,18 @@ exports.rate = (req, res, next) => {
                     res.redirect("/trades/" + trade_id);
                 }
                 else {
-                    model.findOneAndUpdate({ _id: trade_id }, { $push: { ratings: user } }, { useFindAndModify: false, runValidators: true })
+                    model.findOneAndUpdate(
+                        { _id: trade_id },
+                        { $push: { ratings: user } },
+                        { useFindAndModify: false, runValidators: true })
                         .then(trade => {
                             if (trade) {
-                                req.flash("success", "You have successfully liked the trade with id " + trade_id + "!")
+                                req.flash("success",
+                                    "You have successfully liked the trade id " + trade_id + "!")
                                 res.redirect("/trades");
                             }
                             else {
-                                let err = new Error("Cannot find the trade with id " + trade_id);
+                                let err = new Error("Cannot find the trade id " + trade_id);
                                 err.status = 404;
                                 next(err);
                             }
@@ -172,7 +188,11 @@ exports.rate = (req, res, next) => {
                 next(err);
             }
         })
-        .catch(err => next(err))
+        .catch(err => {
+            // next(err)
+            req.flash("error", "Internal Server Error occurred while processing the request!")
+            redirect('back')
+        })
 };
 
 exports.rate = (req, res, next) => {
@@ -190,14 +210,18 @@ exports.rate = (req, res, next) => {
                     res.redirect("/trades/" + trade_id);
                 }
                 else {
-                    model.findOneAndUpdate({ _id: trade_id }, { $push: { ratings: user } }, { useFindAndModify: false, runValidators: true })
+                    model.findOneAndUpdate(
+                        { _id: trade_id },
+                        { $push: { ratings: user } },
+                        { useFindAndModify: false, runValidators: true })
                         .then(trade => {
                             if (trade) {
-                                req.flash("success", "You have successfully liked the trade with id " + trade_id + "!")
+                                req.flash("success",
+                                    "You have successfully liked the trade id " + trade_id + "!")
                                 res.redirect("/trades");
                             }
                             else {
-                                let err = new Error("Cannot find the trade with id " + trade_id);
+                                let err = new Error("Cannot find the trade id " + trade_id);
                                 err.status = 404;
                                 next(err);
                             }
@@ -213,7 +237,11 @@ exports.rate = (req, res, next) => {
                 next(err);
             }
         })
-        .catch(err => next(err))
+        .catch(err => {
+            // next(err)
+            req.flash("error", "Internal Server Error occurred while processing the request!")
+            redirect('back')
+        })
 };
 
 exports.rate = (req, res, next) => {
@@ -231,14 +259,18 @@ exports.rate = (req, res, next) => {
                     res.redirect("/trades/" + trade_id);
                 }
                 else {
-                    model.findOneAndUpdate({ _id: trade_id }, { $push: { ratings: user } }, { useFindAndModify: false, runValidators: true })
+                    model.findOneAndUpdate(
+                        { _id: trade_id },
+                        { $push: { ratings: user } },
+                        { useFindAndModify: false, runValidators: true })
                         .then(trade => {
                             if (trade) {
-                                req.flash("success", "You have successfully liked the trade with id " + trade_id + "!")
+                                req.flash("success",
+                                    "You have successfully liked the trade id " + trade_id + "!")
                                 res.redirect("/trades");
                             }
                             else {
-                                let err = new Error("Cannot find the trade with id " + trade_id);
+                                let err = new Error("Cannot find the trade id " + trade_id);
                                 err.status = 404;
                                 next(err);
                             }
@@ -254,7 +286,11 @@ exports.rate = (req, res, next) => {
                 next(err);
             }
         })
-        .catch(err => next(err))
+        .catch(err => {
+            // next(err)
+            req.flash("error", "Internal Server Error occurred while processing the request!")
+            redirect('back')
+        })
 };
 
 exports.like = (req, res, next) => {
@@ -272,14 +308,18 @@ exports.like = (req, res, next) => {
                     res.redirect("/trades/" + trade_id);
                 }
                 else {
-                    model.findOneAndUpdate({ _id: trade_id }, { $push: { ratings: user } }, { useFindAndModify: false, runValidators: true })
+                    model.findOneAndUpdate(
+                        { _id: trade_id },
+                        { $push: { ratings: user } },
+                        { useFindAndModify: false, runValidators: true })
                         .then(trade => {
                             if (trade) {
-                                req.flash("success", "You have successfully liked the trade with id " + trade_id + "!")
+                                req.flash("success",
+                                    "You have successfully liked the trade id " + trade_id + "!")
                                 res.redirect("/trades");
                             }
                             else {
-                                let err = new Error("Cannot find the trade with id " + trade_id);
+                                let err = new Error("Cannot find the trade id " + trade_id);
                                 err.status = 404;
                                 next(err);
                             }
@@ -295,7 +335,11 @@ exports.like = (req, res, next) => {
                 next(err);
             }
         })
-        .catch(err => next(err))
+        .catch(err => {
+            // next(err)
+            req.flash("error", "Internal Server Error occurred while processing the request!")
+            redirect('back')
+        })
 };
 
 exports.dislike = (req, res, next) => {
@@ -313,14 +357,18 @@ exports.dislike = (req, res, next) => {
                     res.redirect("/trades/" + trade_id);
                 }
                 else {
-                    model.findByIdAndUpdate({ _id: trade_id }, { $pull: { ratings: user } }, { safe: true, upsert: true })
+                    model.findByIdAndUpdate(
+                        { _id: trade_id },
+                        { $pull: { ratings: user } },
+                        { safe: true, upsert: true })
                         .then(trade => {
                             if (trade) {
-                                req.flash("success", "You have successfully disliked the trade with id " + trade_id + "!")
+                                req.flash("success",
+                                    "You have successfully disliked the trade id " + trade_id + "!")
                                 res.redirect("/trades");
                             }
                             else {
-                                let err = new Error("Cannot find the trade with id " + trade_id);
+                                let err = new Error("Cannot find the trade id " + trade_id);
                                 err.status = 404;
                                 next(err);
                             }
@@ -336,5 +384,49 @@ exports.dislike = (req, res, next) => {
                 next(err);
             }
         })
-        .catch(err => next(err))
+        .catch(err => {
+            // next(err)
+            req.flash("error", "Internal Server Error occurred while processing the request!")
+            redirect('back')
+        })
+};
+
+exports.swap = (req, res) => {
+    let id = req.params.id;
+    let user_id = req.session.user;
+    model.findById(id).populate('author', 'firstName lastName')
+        .then(trade => {
+            if (trade) {
+                // console.log("Found session ID: " + id)
+                // console.log(trade)
+                model.find().populate('author', 'firstName lastName')
+                    .where('author').equals(user_id)
+                    .then(user_trades => {
+                        console.log("USER TRADES: " + user_trades)
+                        res.render("./trade/swap", {
+                            title: "Initiate Trade",
+                            swap_trade: trade,
+                            user_trades: user_trades
+                        })
+                    })
+                    .catch(err => {
+                        console.log(err);
+                        // next(err)
+                        req.flash("error", "Internal Server Error occurred while processing the request!")
+                        redirect('back')
+                    })
+
+                // res.render("./trade/show", { title: "Trade", trade: trade, user_id: id })
+            } else {
+                let err = new Error("Cannot find the trade with id " + id);
+                err.status = 404;
+                next(err);
+            }
+        })
+        .catch(err => {
+            if (err.name === "ValidationError") {
+                err.status = 400;
+            }
+            next(err);
+        });
 };

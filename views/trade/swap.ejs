@@ -1,0 +1,63 @@
+<%- include("../partials/header.ejs") %>
+    <main class="container">
+        <div class="row">
+            <div class="col-md-10 offset-md-1 col-xs-8 offset-xs-1 mb-5 mt-5">
+                <%- include("../partials/alert.ejs") %>
+                    <div class="row">
+                        <h2 class="text-center">Your Desired Trade:</h2>
+                        <div class="col-sm-12 col-md-4 mb-4 mt-4">
+                            <img src="/uploads/<%= swap_trade.image %>" alt=""
+                                class="img-fluid cat-img mx-auto d-block ms-2">
+                        </div>
+                        <div class="col-sm-12 col-md-8 mb-4 mt-4">
+                            <h3 class="me-4 ms-2">
+                                <%= swap_trade.category %>: <%= swap_trade.name %>
+                            </h3>
+                            <p class="me-4 ms-2">
+                                <%= swap_trade.description %>
+                            </p>
+                            <p class="mt-2 ms-2"><b>Power: </b>
+                                <%= swap_trade.power %>
+                            </p>
+                            <p class="mt-2 ms-2"><b>Status: </b>
+                                <%= swap_trade.status %>
+                            </p>
+                            <p class="mt-2 ms-2"><b>Condition: </b>
+                                <%= swap_trade.condition %>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-10 offset-md-1 col-xs-8 offset-xs-1 mb-5 mt-5">
+                            <%- include("../partials/alert.ejs") %>
+                                <h2 class="text-center">Your Cards Available For Trade:</h2>
+                                <% if (user_trades) { %>
+                                    <div class="container bg-white mb-4 mt-4 shadow-sm p-3 mb-5 bg-body rounded">
+                                        <div class="row">
+                                            <% user_trades.forEach( user_tr => {%>
+                                                <div class="col-sm-6 col-md-4 mb-4 mt-2">
+                                                    <a class="" href="/trades/<%=user_tr._id%>">
+                                                        <img src="/uploads/<%= user_tr.image %>" alt="<%=user_tr.name%>"
+                                                            class="img-fluid cat-img mx-auto d-block">
+                                                    </a>
+                                                </div>
+                                                <% }) %>
+                                        </div>
+                                    </div>
+                                    <% } else {%>
+                                        <div class="container bg-white mb-4 mt-4 shadow-sm p-3 mb-5 bg-body rounded">
+                                            <div class="row">
+                                                <h2 class="text-center mt-4 mb-4">Welp! No trades are available</h2>
+                                                <img class="img-fluid img mt-5 mb-5 mx-auto err-img2"
+                                                    src="/images/error.png" alt="error">
+                                            </div>
+                                        </div>
+                                        <% } %>
+                        </div>
+                    </div>
+
+            </div>
+        </div>
+    </main>
+    <%- include("../partials/footer.ejs") %>

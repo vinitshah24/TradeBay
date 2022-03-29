@@ -1,0 +1,68 @@
+// mongod --port 27018
+// mongo --port 27018
+
+// use tradebay
+// db.dropDatabase()
+// show dbs
+
+use tradebay
+db.createCollection("trades")
+
+db.trades.insertMany([
+    {
+        name: "Caterpie",
+        category: "Pokémon",
+        description: "Caterpie is a Pokémon that resembles a green caterpillar with a yellow underside and teardrop-shaped tail.",
+        status: "Sold",
+        power: 50,
+        condition: "New",
+        image: "caterpie.jpg"
+    },
+    {
+        name: "Vulpix",
+        category: "Pokémon",
+        description: "Vulpix is a Fire type Pokémon introduced in Generation 1 . It is known as the Fox Pokémon",
+        status: "Sold",
+        power: 110,
+        condition: "Used",
+        image: "vulpix.jpg"
+    },
+    {
+        name: "Totodile",
+        category: "Pokémon",
+        description: "Totodile is a Water type Pokémon introduced in Generation 2. It is known as the Big Jaw Pokémon.",
+        status: "Available",
+        power: 70,
+        condition: "New",
+        image: "totodile.jpg"
+    },
+    {
+        name: "Son Goku",
+        category: "Dragon Ball Z",
+        description: "Goku is a Saiyan from Planet Vegeta. Three years after his birth, his parents sent him away from Planet Vegeta to Planet Earth due to his father's suspicion of Freeza the Evil Emperor.",
+        status: "Available",
+        power: 350,
+        condition: "Used",
+        image: "son_goku.png"
+    },
+    {
+        name: "Vegeta, Harnessed Power",
+        category: "Dragon Ball Z",
+        description: "Vegeta is the prince of an extraterrestrial warrior race known as the Saiyans. He is extremely arrogant, proud and hardworking; constantly referring to his heritage and royal status throughout the series.",
+        status: "Sold",
+        power: 500,
+        condition: "New",
+        image: "vegeta.png"
+    },
+    {
+        name: "Zamasu, Self-Supported",
+        category: "Dragon Ball Z",
+        description: "Zamasu is a Potara fusion born of the union between Goku Black (the original present Zamasu in the original present Goku's body) and Future Zamasu. He is the final antagonist of the Future Trunks Saga.",
+        status: "Available",
+        power: 120,
+        condition: "Used",
+        image: "zamasu.png"
+    }
+])
+
+db.trades.find()

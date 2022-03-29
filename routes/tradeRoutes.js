@@ -20,8 +20,11 @@ router.get("/:id/edit", validateId, isLoggedIn, isAuthor, controller.edit);
 router.put("/:id", validateId, isLoggedIn, isAuthor, controller.update);
 // DELETE: /trades/:id - delete the trade with id
 router.delete("/:id", validateId, isLoggedIn, isAuthor, controller.delete);
-// POST: /trades/rate
+// POST: /trades/like
 router.post("/like", isLoggedIn, controller.like);
+// POST: /trades/dislike
 router.post("/dislike", isLoggedIn, controller.dislike);
+// GET: /trades/swap
+router.get("/:id/swap", validateId, isLoggedIn, controller.swap);
 
 module.exports = router;

@@ -49,10 +49,18 @@ exports.postLogin = (req, res, next) => {
                             res.redirect('/users/login')
                         }
                     })
-                    .catch(err => next(err))
+                    .catch(err => {
+                        // next(err)
+                        req.flash("error", "Internal Server Error occurred while processing the request!")
+                        redirect('back')
+                    })
             }
         })
-        .catch(err => next(err))
+        .catch(err => {
+            // next(err)
+            req.flash("error", "Internal Server Error occurred while processing the request!")
+            redirect('back')
+        })
 }
 
 exports.getProfile = (req, res) => {
@@ -63,7 +71,11 @@ exports.getProfile = (req, res) => {
             const [user, trades] = results;
             res.render('./user/profile', { title: "Profile", user, trades })
         })
-        .catch(err => next(err));
+        .catch(err => {
+            // next(err)
+            req.flash("error", "Internal Server Error occurred while processing the request!")
+            redirect('back')
+        });
 }
 
 exports.getLogout = (req, res, next) => {
