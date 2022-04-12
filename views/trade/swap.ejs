@@ -31,8 +31,8 @@
                     <div class="row">
                         <div class="col-md-10 offset-md-1 col-xs-8 offset-xs-1 mb-5 mt-5">
                             <%- include("../partials/alert.ejs") %>
-                                <h2 class="text-center">Your Cards Available For Trade:</h2>
-                                <% if (user_trades) { %>
+                                <% if (user_trades.length > 0) { %>
+                                    <h2 class="text-center">Your Cards Available For Trade:</h2>
                                     <div class="container bg-white mb-4 mt-4 shadow-sm p-3 mb-5 bg-body rounded">
                                         <div class="row">
                                             <% user_trades.forEach( user_tr => {%>
@@ -48,7 +48,7 @@
                                     <% } else {%>
                                         <div class="container bg-white mb-4 mt-4 shadow-sm p-3 mb-5 bg-body rounded">
                                             <div class="row">
-                                                <h2 class="text-center mt-4 mb-4">Welp! No trades are available</h2>
+                                                <h2 class="text-center mt-4 mb-4">Welp! No items are available for trade</h2>
                                                 <img class="img-fluid img mt-5 mb-5 mx-auto err-img2"
                                                     src="/images/error.png" alt="error">
                                             </div>

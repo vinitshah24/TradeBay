@@ -7,9 +7,14 @@ exports.getSignup = (req, res) => {
 
 exports.postSignup = (req, res, next) => {
     let user = new User(req.body);
-    console.log("USER SIGNUP: " + user)
+    if (user.email) {
+        user.email = user.email.toLowerCase();
+    }
     user.save()
-        .then(() => res.redirect('/users/login'))
+        .then(usr => {
+            req.flash('success', 'Account created successfully!');
+            res.redirect('/users/login')
+        })
         .catch(err => {
             if (err.name === "ValidationError") {
                 req.flash("error", err.message);
@@ -29,8 +34,10 @@ exports.getLogin = (req, res) => {
 
 exports.postLogin = (req, res, next) => {
     let email = req.body.email;
+    if (email) {
+        email = email.toLowerCase();
+    }
     let password = req.body.password;
-    // console.log(req.flash())
     User.findOne({ email: email })
         .then(user => {
             if (!user) {
@@ -67,7 +74,6 @@ exports.getProfile = (req, res) => {
     let id = req.session.user;
     Promise.all([User.findById(id), Trade.find({ author: id })])
         .then(results => {
-            console.log(results)
             const [user, trades] = results;
             res.render('./user/profile', { title: "Profile", user, trades })
         })
@@ -76,6 +82,73 @@ exports.getProfile = (req, res) => {
             req.flash("error", "Internal Server Error occurred while processing the request!")
             redirect('back')
         });
+}
+
+exports.getUpdateProfile = (req, res) => {
+    let id = req.session.user;
+    User.findById(id)
+    .then(user => {
+        res.render('./user/update', { title: "Update Profile", user });
+    })
+    .catch(err => {
+        // next(err)
+        req.flash("error", "Internal Server Error occurred while processing the request!")
+        redirect('back')
+    });
+}
+
+exports.postUpdateProfile = (req, res) => {
+    let id = req.session.user;
+    let firstName = req.body.firstName;
+    let lastName = req.body.lastName;
+    let password1 = req.body.password1;
+    let password2 = req.body.password2;
+    if (password1 !== password2){
+        req.flash("error", "Your password confirmation does not match!")
+        let id = req.session.user;
+        User.findById(id)
+        .then(user => {
+            res.render('./user/update', { title: "Update Profile", user });
+        })
+        .catch(err => {
+            req.flash("error", "Internal Server Error occurred while processing the request!")
+            redirect('back')
+        });
+    }
+    let updatedUser = {
+        firstName: firstName,
+        lastName: lastName,
+        password: password1
+    }
+    User.findByIdAndUpdate(id, updatedUser, { useFindAndModify: false, runValidators: true })
+    .then(usr => {
+        if (usr) {
+            usr.password = password1;
+            usr.save()
+            .then(usr => {
+                req.flash("success", "Your profile is updated successfully!")
+                res.redirect('/users/profile')
+            })
+            .catch(err => {
+                if (err.name === "ValidationError") {
+                    req.flash("error", err.message);
+                    return res.redirect("/users/signup");
+                }
+                next(err);
+            });
+        }
+        else {
+            let err = new Error("Error occurred while updating profile");
+            err.status = 404;
+            next(err);
+        }
+    })
+    .catch(err => {
+        if (err.name === "ValidationError") {
+            err.status = 400;
+        }
+        next(err);
+    });
 }
 
 exports.getLogout = (req, res, next) => {

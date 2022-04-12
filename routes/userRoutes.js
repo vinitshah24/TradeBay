@@ -1,16 +1,19 @@
 const express = require('express');
 const controller = require('../controllers/userController');
 const { isGuest, isLoggedIn } = require('../middlewares/auth');
+const { logInLimiter } = require('../middlewares/rateLimiter');
+const { validateSignUp, validateLogin, validateProfileUpdate, validateResult } = require('../middlewares/validator');
 
 const router = express.Router();
 
 router.get('/signup', isGuest, controller.getSignup);
-router.post('/signup', isGuest, controller.postSignup);
+router.post('/signup', isGuest, validateSignUp, validateResult, controller.postSignup);
 
 router.get('/login', isGuest, controller.getLogin);
-router.post('/login', isGuest, controller.postLogin);
-
+router.post('/login', logInLimiter, isGuest, validateLogin, validateResult, controller.postLogin);
 router.get('/profile', isLoggedIn, controller.getProfile);
+router.get('/update', isLoggedIn, controller.getUpdateProfile);
+router.post('/update', isLoggedIn, validateProfileUpdate, validateResult, controller.postUpdateProfile);
 
 router.get('/logout', isLoggedIn, controller.getLogout);
 
