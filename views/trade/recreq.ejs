@@ -8,41 +8,39 @@
                                 <table class="table">
                                     <thead>
                                       <tr>
-                                        <th scope="col">Trade Category</th>
-                                        <th scope="col">Trade Name</th>
-                                        <th scope="col">Requested Trade Category</th>
-                                        <th scope="col">Requested Trade Name</th>
+                                        <th scope="col">Your Trade Category</th>
+                                        <th scope="col">Your Trade Name</th>
+                                        <th scope="col">Offered Trade Category</th>
+                                        <th scope="col">Offered Trade Name</th>
                                         <th scope="col">Trade Status</th>
                                       </tr>
                                     </thead>
-                                <% tradeReq.forEach(req => { %>
                                     <tbody>
+                                <% tradeReq.forEach(req => { %>
                                         <tr>
                                           <td><%= req.trade.name %></td>
                                           <td><%= req.trade.category %></td>
                                           <td><%= req.trade_offer.category %></td>
                                           <td><%= req.trade_offer.name %></td>
                                           <td>
-                                            <p> <%= req.trade._id %> </p>
-                                            <p> <%= req.owner._id %> </p>
-                                            <p> <%= req.requester._id %></p>
                                             <form action="/trades/run" method="POST">
+                                              <input type="hidden" id="req_id" name="req_id" value="<%= req._id %>">
                                               <input type="hidden" id="trade_id" name="trade_id" value="<%= req.trade._id %>">
                                               <input type="hidden" id="owner_id" name="owner_id" value="<%= req.owner._id %>">
                                               <input type="hidden" id="trade_offer_id" name="trade_offer_id" value="<%= req.trade_offer._id %>">
                                               <input type="hidden" id="trade_req_id" name="trade_req_id" value="<%= req.requester._id %>">
                                               <input type="hidden" id="decision" name="decision" value="approve">
-                                            <button type="submit" class="btn btn-outline-success btn-sm">Approve</button>
+                                            <button type="submit" class="btn btn-outline-success btn-sm mt-2 mb-1">Approve</button>
                                             </form>
                                             <form action="/trades/run" method="POST">
-                                              <input type="hidden" id="trade_req" name="trade_req" value="<%= tradeReq %>">
+                                              <input type="hidden" id="req_id" name="req_id" value="<%= req._id %>">
                                               <input type="hidden" id="decision" name="decision" value="decline">
-                                            <button type="submit" class="btn btn-outline-danger btn-sm">Decline</button>
+                                            <button type="submit" class="btn btn-outline-danger btn-sm mt-1 mb-2">Decline</button>
                                           </form>
                                           </td>
                                         </tr>
-                                      </tbody>
                                     <% }) %>
+                                  </tbody>
                                 </table>
                         </div>
                 </div>

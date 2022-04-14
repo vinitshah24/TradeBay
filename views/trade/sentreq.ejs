@@ -15,8 +15,8 @@
                                         <th scope="col">Trade Status</th>
                                       </tr>
                                     </thead>
-                                <% tradeReq.forEach(req => { %>
                                     <tbody>
+                                <% tradeReq.forEach(req => { %>
                                         <tr>
                                           <td><%= req.trade.name %></td>
                                           <td><%= req.trade.category %></td>
@@ -28,8 +28,8 @@
                                                 <td>Waiting</td>
                                                 <% }%>
                                         </tr>
-                                      </tbody>
                                     <% }) %>
+                                  </tbody>
                                 </table>
                         </div>
                 </div>

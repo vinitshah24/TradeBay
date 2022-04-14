@@ -80,13 +80,12 @@ exports.postTradeRequest = (req, res) => {
     let trade_id = req.body.trade_id;
     let owner_id = req.body.owner_id;
     let trade_offer_id = req.body.trade_offer_id;
-
+    let req_id = req.body.req_id;
     let decision = req.body.decision;
     if (decision.toLowerCase() === "approve") {
         console.log(trade_id + " ==== " + trade_req_id)
         Trade.findOneAndUpdate({ _id: trade_id }, { author: trade_req_id })
             .then(a => {
-                console.log(trade_offer_id + " ==== " + owner_id)
                 Trade.findOneAndUpdate({ _id: trade_offer_id }, { author: owner_id })
                     .then(tradeReq => {
                         tradeRequestModel.deleteMany({ trade_offer: trade_offer_id })
@@ -116,7 +115,14 @@ exports.postTradeRequest = (req, res) => {
                 redirect('back')
             })
     } else {
-
+        tradeRequestModel.findByIdAndDelete(req_id, { runValidators: true })
+        .then(tr => {
+            req.flash("success", "Trade declined successfully!")
+            res.redirect("/trades/rec")
+        })
+        .catch(err => {
+            req.flash("error", "Internal Server Error occurred while processing the request!")
+            redirect('back')
+        })
     }
-
 }
