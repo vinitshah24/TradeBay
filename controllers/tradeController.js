@@ -34,7 +34,7 @@ exports.show = (req, res, next) => {
         .then(trade => {
             if (trade) {
                 let id = req.session.user;
-                console.log("Found session ID: " + id)
+                // console.log("Found session ID: " + id)
                 res.render("./trade/show", { title: "Trade", trade: trade, user_id: id })
             } else {
                 let err = new Error("Cannot find the trade with id " + id);
@@ -103,6 +103,7 @@ exports.update = (req, res, next) => {
     if (req.file !== undefined) {
         trade.image = req.file.filename;
     }
+    trade.author = req.session.user;
     let id = req.params.id;
     model.findByIdAndUpdate(id, trade, { useFindAndModify: false, runValidators: true })
         .then(trade => {
@@ -397,8 +398,6 @@ exports.swap = (req, res) => {
     model.findById(id).populate('author', 'firstName lastName')
         .then(trade => {
             if (trade) {
-                // console.log("Found session ID: " + id)
-                // console.log(trade)
                 model.find().populate('author', 'firstName lastName')
                     .where('author').equals(user_id)
                     .then(user_trades => {

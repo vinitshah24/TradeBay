@@ -37,10 +37,15 @@
                                         <div class="row">
                                             <% user_trades.forEach( user_tr => {%>
                                                 <div class="col-sm-6 col-md-4 mb-4 mt-2">
-                                                    <a class="" href="/trades/<%=user_tr._id%>">
-                                                        <img src="/uploads/<%= user_tr.image %>" alt="<%=user_tr.name%>"
-                                                            class="img-fluid cat-img mx-auto d-block">
-                                                    </a>
+                                                    <form action="/trades/initiate" method="POST">
+                                                        <input type="hidden" id="want_trade" name="want_trade" value="<%= swap_trade._id %>">
+                                                        <input type="hidden" id="want_trade_author" name="want_trade_author" value="<%= swap_trade.author._id %>">
+                                                        <input type="hidden" id="swap_trade" name="swap_trade" value="<%= user_tr._id %>">
+                                                        <button type="submit" style="border:none;" >
+                                                            <img src="/uploads/<%= user_tr.image %>" alt="<%=user_tr.name%>"
+                                                                class="img-fluid cat-img mx-auto d-block">
+                                                        </button>
+                                                    </form>
                                                 </div>
                                                 <% }) %>
                                         </div>

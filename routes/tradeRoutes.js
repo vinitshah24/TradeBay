@@ -1,10 +1,15 @@
 const express = require("express");
 const controller = require("../controllers/tradeController")
+const trController = require("../controllers/tradeRequestController")
 
 const { isLoggedIn, isAuthor } = require('../middlewares/auth');
 const { validateId, validateTrade } = require('../middlewares/validator');
 
 const router = express.Router();
+
+router.get("/sent", isLoggedIn, trController.getSentRequest);
+router.get("/rec", isLoggedIn, trController.getReceivedRequest);
+router.post("/run", isLoggedIn, trController.postTradeRequest);
 
 // GET: /trades - send all trades to the user
 router.get("/", controller.index);
@@ -26,5 +31,7 @@ router.post("/like", isLoggedIn, controller.like);
 router.post("/dislike", isLoggedIn, controller.dislike);
 // GET: /trades/swap
 router.get("/:id/swap", validateId, isLoggedIn, controller.swap);
+
+router.post("/initiate", isLoggedIn, trController.initiateRequest);
 
 module.exports = router;

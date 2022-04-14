@@ -1,0 +1,52 @@
+<%- include("../partials/header.ejs") %>
+    <main class="container">
+        <div class="row">
+            <div class="col-md-10 offset-md-1 col-xs-8 offset-xs-1 mb-5 mt-5">
+                <div class="container bg-white mb-4 mt-4 shadow-sm p-3 mb-5 bg-body rounded">
+                    <%- include("../partials/alert.ejs") %>
+                        <div class="row">
+                                <table class="table">
+                                    <thead>
+                                      <tr>
+                                        <th scope="col">Trade Category</th>
+                                        <th scope="col">Trade Name</th>
+                                        <th scope="col">Requested Trade Category</th>
+                                        <th scope="col">Requested Trade Name</th>
+                                        <th scope="col">Trade Status</th>
+                                      </tr>
+                                    </thead>
+                                <% tradeReq.forEach(req => { %>
+                                    <tbody>
+                                        <tr>
+                                          <td><%= req.trade.name %></td>
+                                          <td><%= req.trade.category %></td>
+                                          <td><%= req.trade_offer.category %></td>
+                                          <td><%= req.trade_offer.name %></td>
+                                          <td>
+                                            <p> <%= req.trade._id %> </p>
+                                            <p> <%= req.owner._id %> </p>
+                                            <p> <%= req.requester._id %></p>
+                                            <form action="/trades/run" method="POST">
+                                              <input type="hidden" id="trade_id" name="trade_id" value="<%= req.trade._id %>">
+                                              <input type="hidden" id="owner_id" name="owner_id" value="<%= req.owner._id %>">
+                                              <input type="hidden" id="trade_offer_id" name="trade_offer_id" value="<%= req.trade_offer._id %>">
+                                              <input type="hidden" id="trade_req_id" name="trade_req_id" value="<%= req.requester._id %>">
+                                              <input type="hidden" id="decision" name="decision" value="approve">
+                                            <button type="submit" class="btn btn-outline-success btn-sm">Approve</button>
+                                            </form>
+                                            <form action="/trades/run" method="POST">
+                                              <input type="hidden" id="trade_req" name="trade_req" value="<%= tradeReq %>">
+                                              <input type="hidden" id="decision" name="decision" value="decline">
+                                            <button type="submit" class="btn btn-outline-danger btn-sm">Decline</button>
+                                          </form>
+                                          </td>
+                                        </tr>
+                                      </tbody>
+                                    <% }) %>
+                                </table>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <%- include("../partials/footer.ejs") %>

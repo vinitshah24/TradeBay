@@ -1,108 +1,96 @@
 [{
   "_id": {
-    "$oid": "624361aec9fe09637802d3f3"
+    "$oid": "62573f7e63f3b739e403af80"
   },
-  "ratings": [
-    {
-      "$oid": "624362cbc9fe09637802d3f7"
-    }
-  ],
+  "ratings": [],
   "category": "Pokémon",
   "name": "Caterpie",
-  "status": "Sold",
+  "status": "Available",
   "power": 50,
   "condition": "New",
   "description": "Caterpie is a Pokémon that resembles a green caterpillar with a yellow underside and teardrop-shaped tail.",
   "author": {
-    "$oid": "62435fcfc9fe09637802d3f1"
+    "$oid": "62573e421a30f941e8ba6643"
   },
   "image": "undefined-caterpie.jpg",
   "__v": 0
 },{
   "_id": {
-    "$oid": "624361f6c9fe09637802d3f4"
+    "$oid": "62573fc963f3b739e403af81"
   },
-  "ratings": [
-    {
-      "$oid": "624362cbc9fe09637802d3f7"
-    }
-  ],
+  "ratings": [],
   "category": "Pokémon",
   "name": "Vulpix",
-  "status": "Sold",
-  "power": 110,
-  "condition": "Used",
+  "status": "Available",
+  "power": 120,
+  "condition": "New",
   "description": "Vulpix is a Fire type Pokémon introduced in Generation 1 . It is known as the Fox Pokémon",
   "author": {
-    "$oid": "62435fcfc9fe09637802d3f1"
+    "$oid": "62573e421a30f941e8ba6643"
   },
   "image": "undefined-vulpix.jpg",
   "__v": 0
 },{
   "_id": {
-    "$oid": "62436240c9fe09637802d3f5"
-  },
-  "ratings": [
-    {
-      "$oid": "624362cbc9fe09637802d3f7"
-    }
-  ],
-  "category": "Dragon Ball Z",
-  "name": "Son Goku",
-  "status": "Available",
-  "power": 350,
-  "condition": "Used",
-  "description": "Goku is a Saiyan from Planet Vegeta. Three years after his birth, his parents sent him away from Planet Vegeta to Planet Earth due to his father's suspicion of Freeza the Evil Emperor.",
-  "author": {
-    "$oid": "62435fcfc9fe09637802d3f1"
-  },
-  "image": "undefined-son_goku.png",
-  "__v": 0
-},{
-  "_id": {
-    "$oid": "62436332c9fe09637802d3f8"
+    "$oid": "625740ad63f3b739e403af82"
   },
   "ratings": [],
   "category": "Pokémon",
   "name": "Totodile",
   "status": "Available",
   "power": 80,
-  "condition": "New",
+  "condition": "Used",
   "description": "Totodile is a Water type Pokémon introduced in Generation 2. It is known as the Big Jaw Pokémon.",
   "author": {
-    "$oid": "624362cbc9fe09637802d3f7"
+    "$oid": "62573e421a30f941e8ba6643"
   },
   "image": "undefined-totodile.jpg",
   "__v": 0
 },{
   "_id": {
-    "$oid": "6243637dc9fe09637802d3f9"
+    "$oid": "625741ac63f3b739e403af84"
   },
   "ratings": [],
   "category": "Dragon Ball Z",
   "name": "Vegeta, Harnessed Power",
-  "status": "Sold",
+  "status": "Available",
   "power": 500,
   "condition": "New",
   "description": "Vegeta is the prince of an extraterrestrial warrior race known as the Saiyans. He is extremely arrogant, proud and hardworking; constantly referring to his heritage and royal status throughout the series.",
   "author": {
-    "$oid": "624362cbc9fe09637802d3f7"
+    "$oid": "62573e2e1a30f941e8ba6642"
   },
   "image": "undefined-vegeta.png",
   "__v": 0
 },{
   "_id": {
-    "$oid": "624363d0c9fe09637802d3fa"
+    "$oid": "625742fc63f3b739e403af85"
+  },
+  "ratings": [],
+  "category": "Dragon Ball Z",
+  "name": "Son Goku",
+  "status": "Available",
+  "power": 350,
+  "condition": "Used",
+  "description": "Goku is a Saiyan from Planet Vegeta. Three years after his birth, his parents sent him away from Planet Vegeta to Planet Earth due to his father&#x27;s suspicion of Freeza the Evil Emperor.",
+  "author": {
+    "$oid": "62573e2e1a30f941e8ba6642"
+  },
+  "image": "undefined-son_goku.png",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6257447a63f3b739e403af86"
   },
   "ratings": [],
   "category": "Dragon Ball Z",
   "name": "Zamasu, Self-Supported",
   "status": "Available",
-  "power": 120,
-  "condition": "Used",
-  "description": "Zamasu is a Potara fusion born of the union between Goku Black (the original present Zamasu in the original present Goku's body) and Future Zamasu. He is the final antagonist of the Future Trunks Saga.",
+  "power": 129,
+  "condition": "New",
+  "description": "Zamasu is a Potara fusion born of the union between Goku Black (the original present Zamasu in the original present Goku&#x27;s body) and Future Zamasu. He is the final antagonist of the Future Trunks Saga.",
   "author": {
-    "$oid": "624362cbc9fe09637802d3f7"
+    "$oid": "62573e2e1a30f941e8ba6642"
   },
   "image": "undefined-zamasu.png",
   "__v": 0
