@@ -1,5 +1,6 @@
 const User = require('../models/user');
 const Trade = require('../models/trade');
+const tradeRequestModel = require("../models/tradeRequest")
 
 exports.getSignup = (req, res) => {
     res.render('./user/signup', { title: "Signup" });
@@ -72,10 +73,15 @@ exports.postLogin = (req, res, next) => {
 
 exports.getProfile = (req, res) => {
     let id = req.session.user;
-    Promise.all([User.findById(id), Trade.find({ author: id })])
+    Promise.all([
+        User.findById(id),
+        Trade.find({ author: id }),
+        tradeRequestModel.find({}).where('requester').equals(id).populate("trade requester trade_offer"),
+        tradeRequestModel.find({}).where('owner').equals(id).populate("trade requester owner trade_offer")
+    ])
         .then(results => {
-            const [user, trades] = results;
-            res.render('./user/profile', { title: "Profile", user, trades })
+            const [user, trades, tradeReq, tradeRes] = results;
+            res.render('./user/profile', { title: "Profile", user, trades, tradeReq, tradeRes })
         })
         .catch(err => {
             // next(err)

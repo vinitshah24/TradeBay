@@ -42,15 +42,6 @@
                             <a class="nav-link <%= title === 'Signup' ? 'active' : '' %>"
                                 href="/users/signup">Signup</a>
                                 <% } else { %>
-                                    <li class="nav-item dropdown">
-                                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                          Trade
-                                        </a>
-                                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <li><a class="nav-link <%= title === 'Sent Requests' ? 'active' : '' %>" href="/trades/sent">Sent Requests</a></li>
-                                        <li><a class="nav-link <%= title === 'Recieved Requests' ? 'active' : '' %>" href="/trades/rec">Received Requests</a></li>
-                                      </ul>
-                                    </li>
                                 <a class="nav-link <%= title === 'Profile' ? 'active' : '' %>" href="/users/profile">Profile</a>
                                 <a class="nav-link <%= title === 'Logout' ? 'active' : '' %>" href="/users/logout">Logout</a>
                                 <% } %>

@@ -8,7 +8,7 @@
                             <br>
                             <% if (user) { %>
                                 <h2 class="text-center mt-2">Welcome <%= user.firstName %>!</h2>
-                                <h4 class="mt-3">Your Profile:</h4>
+                                <h4 class="mt-5 mb-3">Your Profile:</h4>
                                 <div class="container bg-white mb-4 mt-0 shadow-sm p-3 bg-body border rounded">
                                     <p class="mt-1 ms-3"><b>First Name:</b> <%= user.firstName %></p>
                                     <p class="mt-1 ms-3"><b>Last Name:</b> <%= user.lastName %></p>
@@ -21,7 +21,7 @@
                                     </div>
                                 </div>
                                 <% if (trades.length){ %>
-                                    <h4 class="mt-3">Your Trades:</h4>
+                                    <h4 class="mt-5 mb-3">Your Trades:</h4>
                                     <div class="container bg-white mb-4 mt-0 shadow-sm p-3 bg-body border rounded">
                                         <div class="row">
                                             <% trades.forEach(trade=> { %>
@@ -37,6 +37,75 @@
                                     <% } else {%>
                                         <p>You have not added any Trades!</p>
                                         <% }%>
+                                        <h4 class="mt-5 mb-3">Sent Trade Requests:</h4>
+                                        <div class="row ms-1">
+                                            <table class="table">
+                                                <thead>
+                                                  <tr>
+                                                    <th scope="col">Your Trade Category</th>
+                                                    <th scope="col">Your Trade Name</th>
+                                                    <th scope="col">Requested Trade Category</th>
+                                                    <th scope="col">Requested Trade Name</th>
+                                                    <th scope="col">Trade Status</th>
+                                                  </tr>
+                                                </thead>
+                                                <tbody>
+                                            <% tradeReq.forEach(req => { %>
+                                                    <tr>
+                                                      <td><%= req.trade.name %></td>
+                                                      <td><%= req.trade.category %></td>
+                                                      <td><%= req.trade_offer.category %></td>
+                                                      <td><%= req.trade_offer.name %></td>
+                                                      <% if (req.is_accepted) { %>
+                                                        <td>Approved</td>
+                                                        <% } else { %>
+                                                            <td>Waiting</td>
+                                                            <% }%>
+                                                    </tr>
+                                                <% }) %>
+                                              </tbody>
+                                            </table>
+                                    </div>
+                                    <h4 class="mt-5 mb-3">Received Trade Requests:</h4>
+                                        <div class="row ms-1">
+                                            <table class="table">
+                                                <thead>
+                                                  <tr>
+                                                    <th scope="col">Your Trade Category</th>
+                                                    <th scope="col">Your Trade Name</th>
+                                                    <th scope="col">Offered Trade Category</th>
+                                                    <th scope="col">Offered Trade Name</th>
+                                                    <th scope="col">Trade Status</th>
+                                                  </tr>
+                                                </thead>
+                                                <tbody>
+                                            <% tradeRes.forEach(res => { %>
+                                                    <tr>
+                                                      <td><%= res.trade.name %></td>
+                                                      <td><%= res.trade.category %></td>
+                                                      <td><%= res.trade_offer.category %></td>
+                                                      <td><%= res.trade_offer.name %></td>
+                                                      <td>
+                                                        <form action="/trades/run" method="POST">
+                                                          <input type="hidden" id="req_id" name="req_id" value="<%= res._id %>">
+                                                          <input type="hidden" id="trade_id" name="trade_id" value="<%= res.trade._id %>">
+                                                          <input type="hidden" id="owner_id" name="owner_id" value="<%= res.owner._id %>">
+                                                          <input type="hidden" id="trade_offer_id" name="trade_offer_id" value="<%= res.trade_offer._id %>">
+                                                          <input type="hidden" id="trade_req_id" name="trade_req_id" value="<%= res.requester._id %>">
+                                                          <input type="hidden" id="decision" name="decision" value="approve">
+                                                        <button type="submit" class="btn btn-outline-success btn-sm mt-2 mb-1">Approve</button>
+                                                        </form>
+                                                        <form action="/trades/run" method="POST">
+                                                          <input type="hidden" id="req_id" name="req_id" value="<%= res._id %>">
+                                                          <input type="hidden" id="decision" name="decision" value="decline">
+                                                        <button type="submit" class="btn btn-outline-danger btn-sm mt-1 mb-2">Decline</button>
+                                                      </form>
+                                                      </td>
+                                                    </tr>
+                                                <% }) %>
+                                              </tbody>
+                                            </table>
+                                    </div>
                                             <% } else {%>
                                                 <h2>Login to view Profile!</h2>
                                                 <% }%>

@@ -1,4 +1,5 @@
 const model = require("../models/trade")
+const tradeRequestModel = require("../models/tradeRequest")
 
 // GET: /trades - send all trades
 exports.index = (req, res, next) => {
@@ -429,3 +430,98 @@ exports.swap = (req, res) => {
             next(err);
         });
 };
+
+exports.initiateRequest = (req, res) => {
+    let user_id = req.session.user;
+    let want_trade = req.body.want_trade;
+    let want_trade_author = req.body.want_trade_author;
+    let swap_trade = req.body.swap_trade;
+    let tradeReq = {
+        trade: want_trade,
+        owner: want_trade_author,
+        requester: user_id,
+        trade_offer: swap_trade,
+        is_accepted: false
+    }
+    tradeRequestModel.findOne({ trade: want_trade, owner: want_trade_author, trade_offer: swap_trade })
+        .then((trade) => {
+            if (trade) {
+                req.flash("error", "Trade Request already sent!")
+                res.redirect("/trades")
+            }
+            else {
+                let tradeRequest = new tradeRequestModel(tradeReq);
+                tradeRequest.save()
+                    .then((trade) => {
+                        req.flash("success", "Trade Request sent successfully!")
+                        res.redirect("/trades")
+                    }
+                    )
+                    .catch(err => {
+                        if (err.name === "ValidationError") {
+                            err.status = 404;
+                        }
+                        next(err)
+                    });
+            }
+        }
+        )
+        .catch(err => {
+            if (err.name === "ValidationError") {
+                err.status = 404;
+            }
+            next(err)
+        });
+}
+
+exports.postTradeRequest = (req, res) => {
+    let trade_req_id = req.body.trade_req_id;
+    let trade_id = req.body.trade_id;
+    let owner_id = req.body.owner_id;
+    let trade_offer_id = req.body.trade_offer_id;
+    let req_id = req.body.req_id;
+    let decision = req.body.decision;
+    if (decision.toLowerCase() === "approve") {
+        console.log(trade_id + " ==== " + trade_req_id)
+        model.findOneAndUpdate({ _id: trade_id }, { author: trade_req_id })
+            .then(a => {
+                model.findOneAndUpdate({ _id: trade_offer_id }, { author: owner_id })
+                    .then(tradeReq => {
+                        tradeRequestModel.deleteMany({ trade_offer: trade_offer_id })
+                            .then(tradeReq => {
+                                tradeRequestModel.deleteMany({ trade: trade_id })
+                                    .then(tr => {
+                                        req.flash("success", "Trade Swapped successfully!")
+                                        res.redirect("/users/profile")
+                                    })
+                                    .catch(err => {
+                                        req.flash("error", "Internal Server Error occurred while processing the request!")
+                                        redirect('back')
+                                    })
+                            })
+                            .catch(err => {
+                                req.flash("error", "Internal Server Error occurred while processing the request!")
+                                redirect('back')
+                            })
+                    })
+                    .catch(err => {
+                        req.flash("error", "Internal Server Error occurred while processing the request!")
+                        redirect('back')
+                    })
+            })
+            .catch(err => {
+                req.flash("error", "Internal Server Error occurred while processing the request!")
+                redirect('back')
+            })
+    } else {
+        tradeRequestModel.findByIdAndDelete(req_id, { runValidators: true })
+        .then(tr => {
+            req.flash("success", "Trade declined successfully!")
+            res.redirect("/users/profile")
+        })
+        .catch(err => {
+            req.flash("error", "Internal Server Error occurred while processing the request!")
+            redirect('back')
+        })
+    }
+}
