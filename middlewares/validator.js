@@ -15,6 +15,16 @@ exports.validateId = (req, res, next) => {
     }
 }
 
+exports.validateResult = (req, res, next) => {
+    let errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        errors.array().forEach(error => { req.flash('error', error.msg); });
+        return res.redirect('back');
+    } else {
+        return next();
+    }
+}
+
 exports.validateSignUp = [
     body('firstName', 'Enter Valid non-empty firstName').notEmpty().trim().escape(),
     body('lastName', 'Enter Valid non-empty lastName').notEmpty().trim().escape(),
@@ -33,18 +43,6 @@ exports.validateProfileUpdate = [
     body('password1', 'Password must be at least 8 characters and at most 64 characters').isLength({ min: 8, max: 64 }),
     body('password2', 'Confirm Password must be at least 8 characters and at most 64 characters').isLength({ min: 8, max: 64 }),
 ]
-
-exports.validateResult = (req, res, next) => {
-    let errors = validationResult(req);
-    if (!errors.isEmpty()) {
-        errors.array().forEach(error => {
-            req.flash('error', error.msg);
-        });
-        return res.redirect('back');
-    } else {
-        return next();
-    }
-}
 
 exports.validateTrade = [
     body('author', 'Trade author cannot be empty').notEmpty().trim().escape(),

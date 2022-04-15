@@ -7,26 +7,38 @@ exports.getSignup = (req, res) => {
 }
 
 exports.postSignup = (req, res, next) => {
-    let user = new User(req.body);
-    if (user.email) {
-        user.email = user.email.toLowerCase();
-    }
-    user.save()
-        .then(usr => {
-            req.flash('success', 'Account created successfully!');
-            res.redirect('/users/login')
-        })
-        .catch(err => {
-            if (err.name === "ValidationError") {
-                req.flash("error", err.message);
-                return res.redirect("/users/signup");
-            }
-            if (err.code === 11000) {
-                req.flash("error", "Email is already used!");
-                return res.redirect("/users/signup");
-            }
-            next(err);
+    let password1 = req.body.password;
+    let password2 = req.body.password2;
+    if (password1 !== password2) {
+        req.flash('error', 'Password and confirm password not matched!');
+        return res.redirect('/users/signup')
+    } else {
+        let user = new User({
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
+            email: req.body.email,
+            password: req.body.password
         });
+        if (user.email) {
+            user.email = user.email.toLowerCase();
+        }
+        user.save()
+            .then(usr => {
+                req.flash('success', 'Account created successfully!');
+                res.redirect('/users/login')
+            })
+            .catch(err => {
+                if (err.name === "ValidationError") {
+                    req.flash("error", err.message);
+                    return res.redirect("/users/signup");
+                }
+                if (err.code === 11000) {
+                    req.flash("error", "Email is already used!");
+                    return res.redirect("/users/signup");
+                }
+                next(err);
+            });
+    }
 }
 
 exports.getLogin = (req, res) => {
@@ -93,14 +105,14 @@ exports.getProfile = (req, res) => {
 exports.getUpdateProfile = (req, res) => {
     let id = req.session.user;
     User.findById(id)
-    .then(user => {
-        res.render('./user/update', { title: "Update Profile", user });
-    })
-    .catch(err => {
-        // next(err)
-        req.flash("error", "Internal Server Error occurred while processing the request!")
-        redirect('back')
-    });
+        .then(user => {
+            res.render('./user/update', { title: "Update Profile", user });
+        })
+        .catch(err => {
+            // next(err)
+            req.flash("error", "Internal Server Error occurred while processing the request!")
+            redirect('back')
+        });
 }
 
 exports.postUpdateProfile = (req, res) => {
@@ -109,52 +121,46 @@ exports.postUpdateProfile = (req, res) => {
     let lastName = req.body.lastName;
     let password1 = req.body.password1;
     let password2 = req.body.password2;
-    if (password1 !== password2){
+    if (password1 !== password2) {
         req.flash("error", "Your password confirmation does not match!")
-        let id = req.session.user;
-        User.findById(id)
-        .then(user => {
-            res.render('./user/update', { title: "Update Profile", user });
-        })
-        .catch(err => {
-            req.flash("error", "Internal Server Error occurred while processing the request!")
-            redirect('back')
-        });
+        return res.redirect('/users/update')
     }
-    let updatedUser = {
-        firstName: firstName,
-        lastName: lastName,
-        password: password1
-    }
-    User.findByIdAndUpdate(id, updatedUser, { useFindAndModify: false, runValidators: true })
-    .then(usr => {
-        if (usr) {
-            usr.password = password1;
-            usr.save()
+    else {
+        let updatedUser = {
+            firstName: firstName,
+            lastName: lastName,
+            password: password1
+        }
+        User.findByIdAndUpdate(id, updatedUser, { useFindAndModify: false, runValidators: true })
             .then(usr => {
-                req.flash("success", "Your profile is updated successfully!")
-                res.redirect('/users/profile')
+                if (usr) {
+                    usr.password = password1;
+                    usr.save()
+                        .then(usr => {
+                            req.flash("success", "Your profile is updated successfully!")
+                            res.redirect('/users/profile')
+                        })
+                        .catch(err => {
+                            if (err.name === "ValidationError") {
+                                req.flash("error", err.message);
+                                return res.redirect("/users/signup");
+                            }
+                            next(err);
+                        });
+                }
+                else {
+                    let err = new Error("Error occurred while updating profile");
+                    err.status = 404;
+                    next(err);
+                }
             })
             .catch(err => {
                 if (err.name === "ValidationError") {
-                    req.flash("error", err.message);
-                    return res.redirect("/users/signup");
+                    err.status = 400;
                 }
                 next(err);
             });
-        }
-        else {
-            let err = new Error("Error occurred while updating profile");
-            err.status = 404;
-            next(err);
-        }
-    })
-    .catch(err => {
-        if (err.name === "ValidationError") {
-            err.status = 400;
-        }
-        next(err);
-    });
+    }
 }
 
 exports.getLogout = (req, res, next) => {

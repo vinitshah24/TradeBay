@@ -17,10 +17,6 @@ const tradeRequestSchema = new Schema({
     trade_offer: {
         type: Schema.Types.ObjectId,
         ref: 'Trade'
-    },
-    is_accepted: {
-        type: Boolean,
-        required: true
     }
 })
 

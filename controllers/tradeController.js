@@ -35,7 +35,6 @@ exports.show = (req, res, next) => {
         .then(trade => {
             if (trade) {
                 let id = req.session.user;
-                // console.log("Found session ID: " + id)
                 res.render("./trade/show", { title: "Trade", trade: trade, user_id: id })
             } else {
                 let err = new Error("Cannot find the trade with id " + id);
@@ -129,7 +128,11 @@ exports.update = (req, res, next) => {
 // DELETE: /trades/:id - delete the trade with id
 exports.delete = (req, res, next) => {
     let id = req.params.id;
-    model.findByIdAndDelete(id, { runValidators: true })
+    Promise.all([
+        model.findByIdAndDelete(id, { runValidators: true }),
+        tradeRequestModel.deleteMany({ trade: id }),
+        tradeRequestModel.deleteMany({ trade_offer: id })
+    ])
         .then(trade => {
             if (trade) {
                 req.flash("success", "Trade " + id + " deleted successfully!")
@@ -150,13 +153,10 @@ exports.delete = (req, res, next) => {
 
 exports.rate = (req, res, next) => {
     let trade_id = req.body.trade;
-    // console.log("Trade ID: " + trade_id);
     user = req.session.user;
-    // console.log("USER: " + user);
     model.findById(trade_id)
         .then(trade => {
             if (trade) {
-                // console.log("Trade ratings: " + trade.ratings);
                 let foundRatings = trade.ratings
                 if (foundRatings.includes(user)) {
                     req.flash("error", "You have already rated the Trade!")
@@ -199,13 +199,10 @@ exports.rate = (req, res, next) => {
 
 exports.rate = (req, res, next) => {
     let trade_id = req.body.trade;
-    // console.log("Trade ID: " + trade_id);
     user = req.session.user;
-    // console.log("USER: " + user);
     model.findById(trade_id)
         .then(trade => {
             if (trade) {
-                // console.log("Trade ratings: " + trade.ratings);
                 let foundRatings = trade.ratings
                 if (foundRatings.includes(user)) {
                     req.flash("error", "You have already rated the Trade!")
@@ -248,13 +245,10 @@ exports.rate = (req, res, next) => {
 
 exports.rate = (req, res, next) => {
     let trade_id = req.body.trade;
-    // console.log("Trade ID: " + trade_id);
     user = req.session.user;
-    // console.log("USER: " + user);
     model.findById(trade_id)
         .then(trade => {
             if (trade) {
-                // console.log("Trade ratings: " + trade.ratings);
                 let foundRatings = trade.ratings
                 if (foundRatings.includes(user)) {
                     req.flash("error", "You have already rated the Trade!")
@@ -297,13 +291,10 @@ exports.rate = (req, res, next) => {
 
 exports.like = (req, res, next) => {
     let trade_id = req.body.trade;
-    // console.log("Trade ID: " + trade_id);
     user = req.session.user;
-    // console.log("USER: " + user);
     model.findById(trade_id)
         .then(trade => {
             if (trade) {
-                // console.log("Trade ratings: " + trade.ratings);
                 let foundRatings = trade.ratings
                 if (foundRatings.includes(user)) {
                     req.flash("error", "You have already rated the Trade!")
@@ -346,13 +337,10 @@ exports.like = (req, res, next) => {
 
 exports.dislike = (req, res, next) => {
     let trade_id = req.body.trade;
-    // console.log("Trade ID: " + trade_id);
     user = req.session.user;
-    // console.log("USER: " + user);
     model.findById(trade_id)
         .then(trade => {
             if (trade) {
-                // console.log("Trade ratings: " + trade.ratings);
                 let foundRatings = trade.ratings
                 if (!foundRatings.includes(user)) {
                     req.flash("error", "You have not rated the Trade!")
@@ -402,7 +390,6 @@ exports.swap = (req, res) => {
                 model.find().populate('author', 'firstName lastName')
                     .where('author').equals(user_id)
                     .then(user_trades => {
-                        console.log("USER TRADES: " + user_trades)
                         res.render("./trade/swap", {
                             title: "Initiate Trade",
                             swap_trade: trade,
@@ -411,12 +398,9 @@ exports.swap = (req, res) => {
                     })
                     .catch(err => {
                         console.log(err);
-                        // next(err)
                         req.flash("error", "Internal Server Error occurred while processing the request!")
                         redirect('back')
                     })
-
-                // res.render("./trade/show", { title: "Trade", trade: trade, user_id: id })
             } else {
                 let err = new Error("Cannot find the trade with id " + id);
                 err.status = 404;
@@ -441,7 +425,6 @@ exports.initiateRequest = (req, res) => {
         owner: want_trade_author,
         requester: user_id,
         trade_offer: swap_trade,
-        is_accepted: false
     }
     tradeRequestModel.findOne({ trade: want_trade, owner: want_trade_author, trade_offer: swap_trade })
         .then((trade) => {
@@ -482,7 +465,6 @@ exports.postTradeRequest = (req, res) => {
     let req_id = req.body.req_id;
     let decision = req.body.decision;
     if (decision.toLowerCase() === "approve") {
-        console.log(trade_id + " ==== " + trade_req_id)
         model.findOneAndUpdate({ _id: trade_id }, { author: trade_req_id })
             .then(a => {
                 model.findOneAndUpdate({ _id: trade_offer_id }, { author: owner_id })
@@ -515,13 +497,13 @@ exports.postTradeRequest = (req, res) => {
             })
     } else {
         tradeRequestModel.findByIdAndDelete(req_id, { runValidators: true })
-        .then(tr => {
-            req.flash("success", "Trade declined successfully!")
-            res.redirect("/users/profile")
-        })
-        .catch(err => {
-            req.flash("error", "Internal Server Error occurred while processing the request!")
-            redirect('back')
-        })
+            .then(tr => {
+                req.flash("success", "Trade declined successfully!")
+                res.redirect("/users/profile")
+            })
+            .catch(err => {
+                req.flash("error", "Internal Server Error occurred while processing the request!")
+                redirect('back')
+            })
     }
 }

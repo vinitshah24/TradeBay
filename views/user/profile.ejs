@@ -52,15 +52,10 @@
                                                 <tbody>
                                             <% tradeReq.forEach(req => { %>
                                                     <tr>
-                                                      <td><%= req.trade.name %></td>
                                                       <td><%= req.trade.category %></td>
+                                                      <td><%= req.trade.name %></td>
                                                       <td><%= req.trade_offer.category %></td>
                                                       <td><%= req.trade_offer.name %></td>
-                                                      <% if (req.is_accepted) { %>
-                                                        <td>Approved</td>
-                                                        <% } else { %>
-                                                            <td>Waiting</td>
-                                                            <% }%>
                                                     </tr>
                                                 <% }) %>
                                               </tbody>

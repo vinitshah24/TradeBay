@@ -8,7 +8,6 @@ const router = express.Router();
 
 router.get('/signup', isGuest, controller.getSignup);
 router.post('/signup', isGuest, validateSignUp, validateResult, controller.postSignup);
-
 router.get('/login', isGuest, controller.getLogin);
 router.post('/login', logInLimiter, isGuest, validateLogin, validateResult, controller.postLogin);
 router.get('/profile', isLoggedIn, controller.getProfile);
