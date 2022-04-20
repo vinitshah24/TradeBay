@@ -35,7 +35,7 @@ const tradeSchema = new Schema({
         type: String,
         required: [true, "Trade image is required"]
     },
-    ratings: [{
+    watch_list: [{
         type: Schema.Types.ObjectId,
         ref: 'User'
     }]

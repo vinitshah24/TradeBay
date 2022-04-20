@@ -1,0 +1,32 @@
+<%- include("../partials/header.ejs") %>
+    <main class="container">
+        <div class="row">
+            <div class="col-md-10 offset-md-1 col-xs-8 offset-xs-1 mb-5 mt-5">
+                <%- include("../partials/alert.ejs") %>
+                <% if (trades.length){ %>
+                    <h4 class="mt-5 mb-3">Your WatchList:</h4>
+                    <div class="container bg-white mb-4 mt-0 shadow-sm p-3 bg-body border rounded">
+                        <div class="row">
+                            <% trades.forEach(trade=> { %>
+                                <div class="col-sm-6 col-md-4 mb-4 mt-0">
+                                    <a class="" href="/trades/<%=trade._id%>">
+                                        <img src="/uploads/<%= trade.image %>" alt="<%=trade.name%>"
+                                            class="img-fluid cat-img mx-auto d-block">
+                                    </a>
+                                </div>
+                                <% }) %>
+                        </div>
+                    </div>
+                    <% } else {%>
+                        <div class="container bg-white mb-4 mt-4 shadow-sm p-3 mb-5 bg-body rounded">
+                            <div class="row">
+                                <h2 class="text-center mt-4 mb-4">Welp! Your WatchList is Empty</h2>
+                                <img class="img-fluid img mt-5 mb-5 mx-auto err-img2"
+                                src="/images/error.png" alt="error">
+                            </div>
+                        </div>
+                        <% }%>
+            </div>
+        </div>
+    </main>
+    <%- include("../partials/footer.ejs") %>

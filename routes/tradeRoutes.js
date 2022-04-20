@@ -20,10 +20,10 @@ router.get("/:id/edit", validateId, isLoggedIn, isAuthor, controller.edit);
 router.put("/:id", validateId, isLoggedIn, isAuthor, validateTrade, controller.update);
 // DELETE: /trades/:id - delete the trade with id
 router.delete("/:id", validateId, isLoggedIn, isAuthor, controller.delete);
-// POST: /trades/like
-router.post("/like", isLoggedIn, controller.like);
-// POST: /trades/dislike
-router.post("/dislike", isLoggedIn, controller.dislike);
+// POST: /trades/watch
+router.post("/watch", isLoggedIn, controller.watch);
+// POST: /trades/unwatch
+router.post("/unwatch", isLoggedIn, controller.unwatch);
 // GET: /trades/swap
 router.get("/:id/swap", validateId, isLoggedIn, controller.swap);
 // POST: /trades/initiate

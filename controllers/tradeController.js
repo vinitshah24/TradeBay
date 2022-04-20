@@ -151,26 +151,26 @@ exports.delete = (req, res, next) => {
         })
 };
 
-exports.rate = (req, res, next) => {
+exports.watch = (req, res, next) => {
     let trade_id = req.body.trade;
     user = req.session.user;
     model.findById(trade_id)
         .then(trade => {
             if (trade) {
-                let foundRatings = trade.ratings
+                let foundRatings = trade.watch_list
                 if (foundRatings.includes(user)) {
-                    req.flash("error", "You have already rated the Trade!")
+                    req.flash("error", "You have already added the Trade to WatchList!")
                     res.redirect("/trades/" + trade_id);
                 }
                 else {
                     model.findOneAndUpdate(
                         { _id: trade_id },
-                        { $push: { ratings: user } },
+                        { $push: { watch_list: user } },
                         { useFindAndModify: false, runValidators: true })
                         .then(trade => {
                             if (trade) {
                                 req.flash("success",
-                                    "You have successfully liked the trade id " + trade_id + "!")
+                                    "You have successfully add the trade id " + trade_id + " to WatchList!")
                                 res.redirect("/trades");
                             }
                             else {
@@ -180,7 +180,7 @@ exports.rate = (req, res, next) => {
                             }
                         })
                         .catch(err => next(err))
-                    req.flash("success", "You have successfully rated the Trade!")
+                    req.flash("success", "You have successfully added the Trade to WatchList!")
                     res.redirect("/trades/" + trade_id);
                 }
             }
@@ -197,151 +197,13 @@ exports.rate = (req, res, next) => {
         })
 };
 
-exports.rate = (req, res, next) => {
+exports.unwatch = (req, res, next) => {
     let trade_id = req.body.trade;
     user = req.session.user;
     model.findById(trade_id)
         .then(trade => {
             if (trade) {
-                let foundRatings = trade.ratings
-                if (foundRatings.includes(user)) {
-                    req.flash("error", "You have already rated the Trade!")
-                    res.redirect("/trades/" + trade_id);
-                }
-                else {
-                    model.findOneAndUpdate(
-                        { _id: trade_id },
-                        { $push: { ratings: user } },
-                        { useFindAndModify: false, runValidators: true })
-                        .then(trade => {
-                            if (trade) {
-                                req.flash("success",
-                                    "You have successfully liked the trade id " + trade_id + "!")
-                                res.redirect("/trades");
-                            }
-                            else {
-                                let err = new Error("Cannot find the trade id " + trade_id);
-                                err.status = 404;
-                                next(err);
-                            }
-                        })
-                        .catch(err => next(err))
-                    req.flash("success", "You have successfully rated the Trade!")
-                    res.redirect("/trades/" + trade_id);
-                }
-            }
-            else {
-                let err = new Error("Cannot find the trade with id " + trade_id);
-                err.status = 404;
-                next(err);
-            }
-        })
-        .catch(err => {
-            // next(err)
-            req.flash("error", "Internal Server Error occurred while processing the request!")
-            redirect('back')
-        })
-};
-
-exports.rate = (req, res, next) => {
-    let trade_id = req.body.trade;
-    user = req.session.user;
-    model.findById(trade_id)
-        .then(trade => {
-            if (trade) {
-                let foundRatings = trade.ratings
-                if (foundRatings.includes(user)) {
-                    req.flash("error", "You have already rated the Trade!")
-                    res.redirect("/trades/" + trade_id);
-                }
-                else {
-                    model.findOneAndUpdate(
-                        { _id: trade_id },
-                        { $push: { ratings: user } },
-                        { useFindAndModify: false, runValidators: true })
-                        .then(trade => {
-                            if (trade) {
-                                req.flash("success",
-                                    "You have successfully liked the trade id " + trade_id + "!")
-                                res.redirect("/trades");
-                            }
-                            else {
-                                let err = new Error("Cannot find the trade id " + trade_id);
-                                err.status = 404;
-                                next(err);
-                            }
-                        })
-                        .catch(err => next(err))
-                    req.flash("success", "You have successfully rated the Trade!")
-                    res.redirect("/trades/" + trade_id);
-                }
-            }
-            else {
-                let err = new Error("Cannot find the trade with id " + trade_id);
-                err.status = 404;
-                next(err);
-            }
-        })
-        .catch(err => {
-            // next(err)
-            req.flash("error", "Internal Server Error occurred while processing the request!")
-            redirect('back')
-        })
-};
-
-exports.like = (req, res, next) => {
-    let trade_id = req.body.trade;
-    user = req.session.user;
-    model.findById(trade_id)
-        .then(trade => {
-            if (trade) {
-                let foundRatings = trade.ratings
-                if (foundRatings.includes(user)) {
-                    req.flash("error", "You have already rated the Trade!")
-                    res.redirect("/trades/" + trade_id);
-                }
-                else {
-                    model.findOneAndUpdate(
-                        { _id: trade_id },
-                        { $push: { ratings: user } },
-                        { useFindAndModify: false, runValidators: true })
-                        .then(trade => {
-                            if (trade) {
-                                req.flash("success",
-                                    "You have successfully liked the trade id " + trade_id + "!")
-                                res.redirect("/trades");
-                            }
-                            else {
-                                let err = new Error("Cannot find the trade id " + trade_id);
-                                err.status = 404;
-                                next(err);
-                            }
-                        })
-                        .catch(err => next(err))
-                    req.flash("success", "You have successfully rated the Trade!")
-                    res.redirect("/trades/" + trade_id);
-                }
-            }
-            else {
-                let err = new Error("Cannot find the trade with id " + trade_id);
-                err.status = 404;
-                next(err);
-            }
-        })
-        .catch(err => {
-            // next(err)
-            req.flash("error", "Internal Server Error occurred while processing the request!")
-            redirect('back')
-        })
-};
-
-exports.dislike = (req, res, next) => {
-    let trade_id = req.body.trade;
-    user = req.session.user;
-    model.findById(trade_id)
-        .then(trade => {
-            if (trade) {
-                let foundRatings = trade.ratings
+                let foundRatings = trade.watch_list
                 if (!foundRatings.includes(user)) {
                     req.flash("error", "You have not rated the Trade!")
                     res.redirect("/trades/" + trade_id);
@@ -349,7 +211,7 @@ exports.dislike = (req, res, next) => {
                 else {
                     model.findByIdAndUpdate(
                         { _id: trade_id },
-                        { $pull: { ratings: user } },
+                        { $pull: { watch_list: user } },
                         { safe: true, upsert: true })
                         .then(trade => {
                             if (trade) {
@@ -506,4 +368,18 @@ exports.postTradeRequest = (req, res) => {
                 redirect('back')
             })
     }
+}
+
+exports.getWatchlist = (req, res, next) => {
+    let user_id = req.session.user;
+    console.log("user_id: " + user_id);
+    // { watch_list: { $in: [user_id] } }
+    model.find().where("watch_list").in(user_id)
+        .then(trades => {
+            res.render("./user/watchlist", { title: "WatchList", trades: trades });
+        })
+        .catch(err => {
+            req.flash("error", "Internal Server Error occurred while processing the request!")
+            // redirect('back')
+        })
 }

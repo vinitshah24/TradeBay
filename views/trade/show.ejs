@@ -43,22 +43,22 @@
                                             <div class="mt-2 ms-2 btn-group">
                                                 <a href="/trades/<%=trade._id%>/swap" class="btn btn-success me-2">Trade</a>
 
-                                                <% if (!trade.ratings.includes(user_id.toString())) { %>
-                                                <form action="/trades/like" method="POST">
+                                                <% if (!trade.watch_list.includes(user_id.toString())) { %>
+                                                <form action="/trades/watch" method="POST">
                                                     <input type="hidden" id="trade" name="trade" value="<%= trade._id %>">
-                                                    <button type="submit" class="btn btn-primary me-2">Like</button>
+                                                    <button type="submit" class="btn btn-primary me-2">Add to Watchlist</button>
                                                 </form>
                                                 <% } else { %>
-                                                    <form action="/trades/dislike" method="POST">
+                                                    <form action="/trades/unwatch" method="POST">
                                                         <input type="hidden" id="trade" name="trade" value="<%= trade._id %>">
-                                                        <button type="submit" class="btn btn-danger me-2">Dislike</button>
+                                                        <button type="submit" class="btn btn-danger me-2">Remove from Watchlist</button>
                                                     </form>
                                                     <% } %>
                                             </div>
                                             <% } %>
                                                 <% } %>
                                                 <div class="mt-2 ms-2">
-                                                <p><b><%= trade.ratings.length %> user(s) liked this trade!</b></p>
+                                                <p><b><%= trade.watch_list.length %> user(s) are watching this Trade!</b></p>
                                                 </div>
                             </div>
                         </div>
