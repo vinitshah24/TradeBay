@@ -370,16 +370,15 @@ exports.postTradeRequest = (req, res) => {
     }
 }
 
-exports.getWatchlist = (req, res, next) => {
+exports.getWatchList = (req, res, next) => {
     let user_id = req.session.user;
     console.log("user_id: " + user_id);
-    // { watch_list: { $in: [user_id] } }
     model.find().where("watch_list").in(user_id)
         .then(trades => {
             res.render("./user/watchlist", { title: "WatchList", trades: trades });
         })
         .catch(err => {
             req.flash("error", "Internal Server Error occurred while processing the request!")
-            // redirect('back')
+            redirect('back')
         })
 }

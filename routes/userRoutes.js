@@ -15,7 +15,7 @@ router.get('/profile', isLoggedIn, controller.getProfile);
 router.get('/update', isLoggedIn, controller.getUpdateProfile);
 router.post('/update', isLoggedIn, validateProfileUpdate, validateResult, controller.postUpdateProfile);
 
-router.get('/watchlist', isLoggedIn, tradeController.getWatchlist);
+router.get('/watchlist', isLoggedIn, tradeController.getWatchList);
 router.get('/logout', isLoggedIn, controller.getLogout);
 
 module.exports = router;

@@ -17,6 +17,11 @@ const tradeRequestSchema = new Schema({
     trade_offer: {
         type: Schema.Types.ObjectId,
         ref: 'Trade'
+    },
+    status: {
+        type: String,
+        default: "waiting",
+        required: [true, "Trade status is required (waiting, accepted, declined)"]
     }
 })
 
