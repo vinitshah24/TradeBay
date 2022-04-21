@@ -332,19 +332,23 @@ exports.postTradeRequest = (req, res) => {
             .then(a => {
                 model.findOneAndUpdate({ _id: trade_offer_id }, { author: owner_id })
                     .then(tradeReq => {
-                        Promise.all([
-                            tradeRequestModel.updateMany(
-                                { trade: trade_id, trade_offer: trade_offer_id, status: "waiting" },
-                                { status: "accepted" },
-                                { useFindAndModify: false, runValidators: true }),
-                            tradeRequestModel.updateMany(
-                                { trade: trade_id, status: "waiting" },
-                                { status: "declined" },
-                                { useFindAndModify: false, runValidators: true })
-                        ])
+                        tradeRequestModel.updateMany(
+                            { trade: trade_id, trade_offer: trade_offer_id, status: "waiting" },
+                            { status: "accepted" },
+                            { useFindAndModify: false, runValidators: true })
                             .then(tr => {
-                                req.flash("success", "Trade Swapped successfully!")
-                                res.redirect("/users/profile")
+                                tradeRequestModel.updateMany(
+                                    { trade_offer: trade_offer_id, status: "waiting" },
+                                    { status: "declined" },
+                                    { useFindAndModify: false, runValidators: true })
+                                    .then(tr => {
+                                        req.flash("success", "Trade Swapped successfully!")
+                                        res.redirect("/users/profile")
+                                    })
+                                    .catch(err => {
+                                        req.flash("error", "Internal Server Error occurred while processing the request!")
+                                        redirect('back')
+                                    })
                             })
                             .catch(err => {
                                 req.flash("error", "Internal Server Error occurred while processing the request!")

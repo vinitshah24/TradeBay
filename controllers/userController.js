@@ -89,7 +89,7 @@ exports.getProfile = (req, res) => {
         User.findById(id),
         Trade.find({ author: id }),
         tradeRequestModel.find({}).where('requester').equals(id).populate("trade requester trade_offer"),
-        tradeRequestModel.find({owner: id, status: "waiting"}).populate("trade requester owner trade_offer")
+        tradeRequestModel.find({ owner: id, status: "waiting" }).populate("trade requester owner trade_offer")
     ])
         .then(results => {
             const [user, trades, tradeReq, tradeRes] = results;
