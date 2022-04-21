@@ -326,22 +326,25 @@ exports.postTradeRequest = (req, res) => {
     let trade_offer_id = req.body.trade_offer_id;
     let req_id = req.body.req_id;
     let decision = req.body.decision;
+    console.log(req.body);
     if (decision.toLowerCase() === "approve") {
         model.findOneAndUpdate({ _id: trade_id }, { author: trade_req_id })
             .then(a => {
                 model.findOneAndUpdate({ _id: trade_offer_id }, { author: owner_id })
                     .then(tradeReq => {
-                        tradeRequestModel.deleteMany({ trade_offer: trade_offer_id })
-                            .then(tradeReq => {
-                                tradeRequestModel.deleteMany({ trade: trade_id })
-                                    .then(tr => {
-                                        req.flash("success", "Trade Swapped successfully!")
-                                        res.redirect("/users/profile")
-                                    })
-                                    .catch(err => {
-                                        req.flash("error", "Internal Server Error occurred while processing the request!")
-                                        redirect('back')
-                                    })
+                        Promise.all([
+                            tradeRequestModel.updateMany(
+                                { trade: trade_id, trade_offer: trade_offer_id, status: "waiting" },
+                                { status: "accepted" },
+                                { useFindAndModify: false, runValidators: true }),
+                            tradeRequestModel.updateMany(
+                                { trade: trade_id, status: "waiting" },
+                                { status: "declined" },
+                                { useFindAndModify: false, runValidators: true })
+                        ])
+                            .then(tr => {
+                                req.flash("success", "Trade Swapped successfully!")
+                                res.redirect("/users/profile")
                             })
                             .catch(err => {
                                 req.flash("error", "Internal Server Error occurred while processing the request!")
@@ -357,8 +360,24 @@ exports.postTradeRequest = (req, res) => {
                 req.flash("error", "Internal Server Error occurred while processing the request!")
                 redirect('back')
             })
-    } else {
-        tradeRequestModel.findByIdAndDelete(req_id, { runValidators: true })
+    }
+    else if (decision.toLowerCase() === "withdraw") {
+        tradeRequestModel.deleteOne({ trade: trade_id, trade_offer: trade_offer_id, status: "waiting" })
+            .then(tr => {
+                req.flash("success", "Trade withdrawn successfully!")
+                res.redirect("/users/profile")
+            })
+            .catch(err => {
+                req.flash("error", "Internal Server Error occurred while processing the request!")
+                redirect('back')
+            })
+    }
+    else {
+        // tradeRequestModel.findByIdAndDelete(req_id, { runValidators: true })
+        console.log("EQTQ: " + trade_id + " => " + trade_offer_id);
+        tradeRequestModel.updateOne(
+            { trade: trade_id, trade_offer: trade_offer_id, status: "waiting" },
+            { status: "declined" })
             .then(tr => {
                 req.flash("success", "Trade declined successfully!")
                 res.redirect("/users/profile")
